@@ -3,7 +3,7 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from "fram
 import type { MotionValue } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
 import BootPalette from "@/components/stages/BootPalette";
-import { maskLine, revealUp, stagger, spring, useEntrance, useReducedMotionSafe } from "@/lib/motion";
+import { revealUp, spring, useEntrance, useReducedMotionSafe } from "@/lib/motion";
 
 /* ─────────────────────────────────────────────────────────────────────
    BOOT — the studio's desktop assembles itself.
@@ -173,20 +173,15 @@ export default function BootScene() {
           AI software studio
         </motion.span>
 
-        <motion.h1
-          variants={stagger(0.1, 0.25)}
-          initial={entrance("hidden")}
-          animate="show"
-          className="font-display text-[clamp(2.6rem,6vw,4.6rem)] font-extrabold leading-[1.02] tracking-tightest text-ink"
-        >
+        {/* CSS-driven mask reveal: plays on first paint, before hydration —
+            the LCP element never waits for JavaScript */}
+        <h1 className="font-display text-[clamp(2.6rem,6vw,4.6rem)] font-extrabold leading-[1.02] tracking-tightest text-ink">
           {["Software with the", "quality switched on."].map((line, i) => (
-            <span key={i} className="block overflow-hidden pb-[0.08em]">
-              <motion.span variants={maskLine} className="block">
-                {i === 1 ? <span className="text-gradient">{line}</span> : line}
-              </motion.span>
+            <span key={i} className="mask-rise" style={{ animationDelay: `${0.25 + i * 0.12}s` }}>
+              <span>{i === 1 ? <span className="text-gradient">{line}</span> : line}</span>
             </span>
           ))}
-        </motion.h1>
+        </h1>
 
         <motion.p
           variants={revealUp}

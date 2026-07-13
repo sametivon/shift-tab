@@ -146,6 +146,23 @@
   to { opacity: 1; }
 }
 
+/* CSS masked-line reveal for LCP-critical headlines: runs at first paint,
+   no JS required; the reduced-motion block clamps it to instant. */
+.mask-rise {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.mask-rise > span {
+  display: block;
+  transform: translateY(110%);
+  animation: mask-rise-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: inherit;
+}
+@keyframes mask-rise-in {
+  to { transform: translateY(0); }
+}
+
 /* Midnight band — dark, dramatic section */
 .stage {
   background:

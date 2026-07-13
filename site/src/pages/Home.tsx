@@ -27,8 +27,10 @@ const process = [
 
 export default function Home() {
   const entrance = useEntrance();
-  // pinned scenes are hostile on touch: unpin on coarse pointers (post-mount flip)
+  // pinning is a wide-viewport, fine-pointer luxury: phones and touch get
+  // the stacked flow (flags flip post-mount; SSR renders the flow layout)
   const coarse = useMediaFlag("(pointer: coarse)");
+  const wide = useMediaFlag("(min-width: 1024px)");
   return (
     <ScenesRoot>
       <Head>
@@ -60,7 +62,7 @@ export default function Home() {
       </Scene>
 
       {/* ── 02 · THE WORK — the products perform themselves ── */}
-      <Scene id="products" label="02 · the work" accent="#6D5EF7" pin={!coarse} length={3.2}>
+      <Scene id="products" label="02 · the work" accent="#6D5EF7" pin={wide && !coarse} length={3.2}>
         {(ctx) => <WorkScene ctx={ctx} />}
       </Scene>
 
