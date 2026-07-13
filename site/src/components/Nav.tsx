@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { prefersReducedMotion, spring } from "@/lib/motion";
 
@@ -15,8 +15,24 @@ export default function Nav() {
   const reduced = prefersReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
+  const [section, setSection] = useState<string>("");
 
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 16));
+
+  // scroll-spy: which section owns the viewport right now
+  useEffect(() => {
+    const ids = ["products", "build", "services", "process", "contact"];
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    if (!els.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setSection(`/#${e.target.id}`);
+      },
+      { rootMargin: "-30% 0px -55% 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
     <motion.header
@@ -57,12 +73,19 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               onMouseEnter={() => setHover(l.href)}
-              className="relative rounded-full px-3.5 py-1.5 text-[13.5px] font-medium text-muted transition-colors hover:text-ink"
+              className="relative whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13.5px] font-medium text-muted transition-colors hover:text-ink"
             >
               {hover === l.href && (
                 <motion.span
                   layoutId="nav-pill"
                   className="absolute inset-0 -z-10 rounded-full bg-white/70"
+                  transition={spring}
+                />
+              )}
+              {section === l.href && (
+                <motion.span
+                  layoutId="nav-active"
+                  className="absolute inset-x-3 -bottom-0.5 h-[2px] rounded-full bg-brand"
                   transition={spring}
                 />
               )}

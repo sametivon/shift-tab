@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import { Head } from "vite-react-ssg";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
 import TiltCard from "@/components/TiltCard";
 import BrowserMock from "@/components/BrowserMock";
@@ -86,6 +87,11 @@ const process = [
 
 export default function Home() {
   const entrance = useEntrance();
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const mockY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const mockScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const mockOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
   return (
     <>
       <Head>
@@ -112,7 +118,7 @@ export default function Home() {
       </Head>
 
       {/* ── Hero: the studio, alive ── */}
-      <section className="relative flex min-h-[100svh] flex-col overflow-hidden px-6 pt-32 sm:pt-36">
+      <section ref={heroRef} className="relative flex min-h-[100svh] flex-col overflow-hidden px-6 pt-32 sm:pt-36">
         <div className="relative z-10 mx-auto max-w-3xl text-center">
           <motion.span
             initial={entrance({ opacity: 0, y: 10, filter: "blur(4px)" })}
@@ -164,9 +170,9 @@ export default function Home() {
           </motion.div>
         </div>
 
-        <div className="relative z-10 mx-auto mt-16 w-full pb-20">
+        <motion.div style={{ y: mockY, scale: mockScale, opacity: mockOpacity }} className="relative z-10 mx-auto mt-16 w-full pb-20">
           <BrowserMock />
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Product ecosystem ── */}
@@ -343,10 +349,10 @@ export default function Home() {
       {/* ── Business CTA — midnight stage ── */}
       <section id="contact" className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
-          initial={entrance({ opacity: 0, y: 30 })}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={entrance({ opacity: 0, y: 44, scale: 0.955 })}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={inView}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ type: "spring", stiffness: 110, damping: 15, mass: 0.9 }}
           className="stage relative overflow-hidden rounded-card p-12 text-center sm:p-16"
         >
           <span className="eyebrow !text-[#a99cff]">Work with shift-tab</span>
