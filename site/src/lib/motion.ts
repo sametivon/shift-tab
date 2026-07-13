@@ -1,27 +1,52 @@
+import { useEffect, useState } from "react";
 import type { Variants, Transition } from "framer-motion";
 
 /**
- * Synchronous reduced-motion check. Deliberately NOT framer's
- * useReducedMotion(): that hook returns false on the first (hydration)
- * render and flips after mount — which bakes the hidden `initial` into
- * the DOM and then strands the reveal animation mid-flight when the
- * preference kicks in. Reading matchMedia synchronously gives the truth
- * on the very first client render. (SSR renders the hidden state; for
- * reduced-motion users React recovers via client re-render.)
+ * Synchronous reduced-motion check — for EFFECT/CALLBACK time only
+ * (timers, scroll behavior, pointer listeners). NEVER call this during
+ * render: the SSG server always answers false, so any render output
+ * derived from it breaks hydration for reduced-motion users (React
+ * then throws the whole prerender away — this was a real bug on the
+ * live site). For render-time branching use useReducedMotionSafe().
  */
 export const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Returns the `initial` prop to use for an entrance animation. Under
- * reduced motion we pass `false`, which renders the element directly at
- * its `animate`/`show` target — visible, no movement. Otherwise we use
- * the given hidden state so the reveal plays.
+ * Hydration-safe reduced-motion hook for render-time branching.
+ * First client render always matches the server (false); the true
+ * preference lands in a post-mount re-render. Components that freeze
+ * timers/engines re-render into their populated final frame one frame
+ * after hydration — invisible to the user, and the prerender survives.
+ */
+export function useReducedMotionSafe() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    // QA override: ?motion=full / ?motion=reduce beats the OS preference
+    const forced = new URLSearchParams(window.location.search).get("motion");
+    if (forced === "full" || forced === "reduce") {
+      setReduced(forced === "reduce");
+      return;
+    }
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
+
+/**
+ * Returns the `initial` prop for an entrance animation. This is now a
+ * pure passthrough: reduced-motion handling lives in the root
+ * <MotionConfig reducedMotion="user"> (transforms snap, opacity still
+ * fades — elements always become visible, nothing strands hidden), and
+ * keeping the render deterministic keeps hydration clean.
  */
 export function useEntrance() {
-  const reduced = prefersReducedMotion();
-  return (hidden: unknown) => (reduced ? false : (hidden as never));
+  return (hidden: unknown) => hidden as never;
 }
 
 // Shared spring — organic, weighty, never abrupt.

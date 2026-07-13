@@ -1,8 +1,11 @@
 import { useEffect } from "react";
+import { lenisRef } from "@/lib/lenis";
 
 /**
  * Buttery smooth scrolling via Lenis. Lenis is dynamically imported so it
  * stays out of the SSG/Node bundle. Disabled under reduced motion.
+ * The instance is published to lib/lenis so scene travel (focus anchors,
+ * palette, in-page links — handled by ScenesRoot) rides the same easing.
  */
 export default function SmoothScroll() {
   useEffect(() => {
@@ -19,6 +22,7 @@ export default function SmoothScroll() {
         smoothWheel: true,
         touchMultiplier: 1.5,
       });
+      lenisRef.current = lenis;
 
       const loop = (time: number) => {
         lenis.raf(time);
@@ -26,21 +30,9 @@ export default function SmoothScroll() {
       };
       raf = requestAnimationFrame(loop);
 
-      const onClick = (e: MouseEvent) => {
-        const a = (e.target as HTMLElement)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
-        const id = a?.getAttribute("href");
-        if (!id || id === "#") return;
-        const el = document.querySelector(id);
-        if (el) {
-          e.preventDefault();
-          lenis.scrollTo(el as HTMLElement, { offset: -90, duration: 1.3 });
-        }
-      };
-      document.addEventListener("click", onClick);
-
       destroy = () => {
         cancelAnimationFrame(raf);
-        document.removeEventListener("click", onClick);
+        lenisRef.current = null;
         lenis.destroy();
       };
     });

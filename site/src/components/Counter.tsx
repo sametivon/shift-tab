@@ -6,10 +6,16 @@ import { prefersReducedMotion } from "@/lib/motion";
 export default function Counter({ to, suffix = "", duration = 1400 }: { to: number; suffix?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
-  const [v, setV] = useState(prefersReducedMotion() ? to : 0);
+  // hydration-safe: server and first client render both show 0;
+  // reduced-motion users jump straight to the target in the effect below
+  const [v, setV] = useState(0);
 
   useEffect(() => {
-    if (!inView || prefersReducedMotion()) return;
+    if (prefersReducedMotion()) {
+      setV(to);
+      return;
+    }
+    if (!inView) return;
     let raf = 0;
     const t0 = performance.now();
     const tick = (t: number) => {

@@ -31,7 +31,8 @@ export default {
       },
       fontFamily: {
         sans: ['"Inter"', "ui-sans-serif", "system-ui", "-apple-system", "sans-serif"],
-        display: ['"Inter Tight"', '"Inter"', "system-ui", "sans-serif"],
+        display: ['"Inter"', "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ['"Fraunces"', "Georgia", "ui-serif", "serif"],
       },
       letterSpacing: {
         tightest: "-0.045em",

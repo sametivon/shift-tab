@@ -8,9 +8,42 @@
    transitions, quiet depth.
    ───────────────────────────────────────────────────────────────────── */
 
+/* Self-hosted variable fonts (latin subsets) — replaces the Google CDN chain.
+   ⇧/⇥ keycap glyphs intentionally fall back to the system stack, same as before. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/FrauncesVariable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/FrauncesVariable-Italic.woff2") format("woff2");
+}
+
 @layer base {
   :root {
     color-scheme: light;
+  }
+  /* Keyboard-first brand → keyboard users get a first-class focus treatment. */
+  :focus-visible {
+    outline: 2px solid #6d5ef7;
+    outline-offset: 3px;
+  }
+  .stage :focus-visible,
+  .dark-scene :focus-visible {
+    outline-color: #8b7bff;
   }
   html {
     -webkit-font-smoothing: antialiased;
@@ -102,6 +135,32 @@
 @keyframes drift-b {
   from { transform: translate(0, 0); }
   to { transform: translate(-8%, -9%); }
+}
+/* once the WebGL layer is live it owns the blooms — retire the CSS blobs */
+.mesh-bg.canvas-live::before,
+.mesh-bg.canvas-live::after {
+  display: none;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* CSS masked-line reveal for LCP-critical headlines: runs at first paint,
+   no JS required; the reduced-motion block clamps it to instant. */
+.mask-rise {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.mask-rise > span {
+  display: block;
+  transform: translateY(110%);
+  animation: mask-rise-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: inherit;
+}
+@keyframes mask-rise-in {
+  to { transform: translateY(0); }
 }
 
 /* Midnight band — dark, dramatic section */

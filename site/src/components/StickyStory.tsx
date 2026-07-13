@@ -39,7 +39,7 @@ const chapters = [
 export default function StickyStory() {
   const entrance = useEntrance();
   return (
-    <section id="services" className="relative mx-auto max-w-5xl px-6 py-20">
+    <section className="relative mx-auto max-w-5xl px-6 py-20">
       <motion.div
         initial={entrance({ opacity: 0, y: 24 })}
         whileInView={{ opacity: 1, y: 0 }}
