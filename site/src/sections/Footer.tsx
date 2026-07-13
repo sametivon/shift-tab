@@ -5,7 +5,7 @@ export default function Footer() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(60% 120% at 50% 0%, #EEF6FF 0%, transparent 60%), #FAFBFC",
+            "radial-gradient(60% 120% at 50% 0%, #ece5fb 0%, transparent 60%), #faf7f2",
         }}
       />
       <div className="mx-auto max-w-6xl px-6 py-10">

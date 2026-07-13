@@ -15,7 +15,7 @@ const products = [
     tagline: "The DevTools for monday.com",
     body: "X-ray board schemas, run GraphQL, import subitems from CSV, bulk-update hundreds of items and export anything — right inside your boards.",
     href: "/products/extension",
-    accent: "#3E7BFA",
+    accent: "#4a63e7",
     chip: "boards { id name columns { id type } }",
     stats: ["No row limits", "Open source", "Token stays local"],
   },
@@ -25,7 +25,7 @@ const products = [
     tagline: "Your office, inside monday.com",
     body: "A 3D team office embedded in monday.com — walk over and talk with proximity voice & video, present to a full auditorium, keep live boards on the walls.",
     href: "/products/mondayvirtual",
-    accent: "#8A63FF",
+    accent: "#6c5ce7",
     chip: "12 unmuted · ✋ 3 hands · Maya is presenting",
     stats: ["Nothing to install", "Proximity audio", "Live boards in-world"],
   },
@@ -183,27 +183,23 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ── Principles ── */}
+      {/* ── Principles — the one dark, dramatic moment on the page ── */}
       <section id="principles" className="relative mx-auto max-w-6xl px-6 py-10">
         <motion.div
           initial={entrance({ opacity: 0, y: 30 })}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={inView}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative overflow-hidden rounded-[28px] border border-hairline p-10 sm:p-12"
-          style={{
-            background:
-              "radial-gradient(70% 120% at 20% 0%, #EEF6FF 0%, transparent 55%)," +
-              "radial-gradient(60% 120% at 90% 100%, #F3EEFF 0%, transparent 55%), #FFFFFF",
-          }}
+          className="stage relative overflow-hidden rounded-[28px] p-10 sm:p-14"
         >
-          <div className="mx-auto mb-9 max-w-2xl text-center">
-            <span className="mb-4 inline-block rounded-full bg-white/70 px-3 py-1 text-[12px] font-semibold uppercase tracking-wider text-brand">
-              Principles
-            </span>
-            <h2 className="font-display text-[clamp(1.75rem,3.5vw,2.6rem)] font-extrabold leading-tight tracking-tightest text-ink">
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <span className="eyebrow !text-[#b9aef5]">Principles</span>
+            <h2 className="mt-4 font-display text-[clamp(1.9rem,4vw,3rem)] leading-tight tracking-tightest text-white">
               Simple. Soft. Fast.
             </h2>
+            <p className="mx-auto mt-4 max-w-md text-[1rem] leading-relaxed text-white/60">
+              Three words we hold every screen against — in that order.
+            </p>
           </div>
           <motion.div
             variants={stagger(0.1)}
@@ -218,14 +214,16 @@ export default function Home() {
                 variants={scaleIn}
                 whileHover={{ y: -5 }}
                 transition={{ type: "spring", stiffness: 220, damping: 20 }}
-                className="rounded-2xl border border-hairline bg-white/80 p-6"
+                className="rounded-2xl border border-white/10 bg-white/[.06] p-6 backdrop-blur-sm"
               >
-                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl font-mono text-[15px] font-bold text-white"
-                  style={{ background: `linear-gradient(135deg, ${["#3E7BFA", "#8A63FF", "#12B76A"][i]}, ${["#6161FF", "#6161FF", "#3E7BFA"][i]})` }}>
+                <div
+                  className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl font-mono text-[15px] font-bold text-white"
+                  style={{ background: `linear-gradient(135deg, ${["#6c5ce7", "#0a9a6e", "#e8a33d"][i]}, ${["#4a3fbe", "#087a57", "#c9821c"][i]})` }}
+                >
                   {["⌘", "✦", "⇥"][i]}
                 </div>
-                <h3 className="font-display text-[1.1rem] font-bold text-ink">{p.k}</h3>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-muted">{p.d}</p>
+                <h3 className="font-display text-[1.15rem] text-white">{p.k}</h3>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-white/60">{p.d}</p>
               </motion.div>
             ))}
           </motion.div>

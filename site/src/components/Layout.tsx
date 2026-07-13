@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import AmbientBackground from "@/three/AmbientBackground";
 import SmoothScroll from "@/components/SmoothScroll";
 import Nav from "@/components/Nav";
 import Footer from "@/sections/Footer";
@@ -7,7 +6,8 @@ import Footer from "@/sections/Footer";
 export default function Layout() {
   return (
     <>
-      <AmbientBackground />
+      {/* Drifting pastel mesh — pure CSS, robust everywhere, zero JS cost */}
+      <div className="mesh-bg" aria-hidden />
       <SmoothScroll />
       <Nav />
       <main className="relative z-10">

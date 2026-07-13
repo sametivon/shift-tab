@@ -42,7 +42,7 @@ export default function Nav() {
             whileHover={{ rotate: -8, scale: 1.08 }}
             transition={spring}
           />
-          <span className="font-display text-[15.5px] font-extrabold tracking-tight text-ink">
+          <span className="whitespace-nowrap font-display text-[16px] font-extrabold tracking-tight text-ink">
             shift<span className="text-brand-indigo">-tab</span>
           </span>
         </a>
@@ -72,8 +72,8 @@ export default function Nav() {
 
         <a
           href="/#products"
-          className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13.5px] font-semibold text-white shadow-[0_8px_22px_rgba(62,123,250,.32)]"
-          style={{ background: "linear-gradient(120deg,#3E7BFA,#6161FF)" }}
+          className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-4 py-2 text-[13.5px] font-semibold text-white shadow-[0_6px_18px_-6px_rgba(33,28,41,.5)] transition-shadow hover:shadow-[0_10px_26px_-8px_rgba(33,28,41,.55)]"
+
         >
           Explore products
         </a>

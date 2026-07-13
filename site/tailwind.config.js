@@ -1,44 +1,43 @@
 /** @type {import('tailwindcss').Config} */
+// Warm-editorial identity shared with mondayvirtual.eu: paper, ink, violet,
+// serif display. Token NAMES stay stable so components restyle automatically.
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        paper: "#FAFBFC", // primary background — warm white
-        mist: "#F4F7FB", // secondary background
-        card: "#FFFFFF",
-        surface: "#EEF6FF", // accent surface
-        softblue: "#DDEEFF",
-        softmint: "#EAF8F2",
-        softlavender: "#F3EEFF",
-        softpeach: "#FFF2EA",
-        ink: "#17212D", // primary text
-        muted: "#66758A", // secondary text
-        hairline: "rgba(120,140,170,.12)",
+        paper: "#faf7f2", // warm paper background
+        mist: "#f3eee6", // paper-2
+        card: "#ffffff",
+        surface: "#efe9fb", // violet-tinted surface
+        softblue: "#e4ecf7",
+        softmint: "#e2f3ea",
+        softlavender: "#ece5fb",
+        softpeach: "#fbe7dd",
+        ink: "#211c29",
+        muted: "#6b6478",
+        hairline: "rgba(33,28,41,.12)",
         brand: {
-          DEFAULT: "#3E7BFA",
-          500: "#3E7BFA",
-          600: "#2F6BED",
-          indigo: "#6161FF", // monday accent, used sparingly
+          DEFAULT: "#6c5ce7",
+          500: "#6c5ce7",
+          600: "#5a4bd4",
+          indigo: "#4a3fbe",
         },
       },
       fontFamily: {
-        sans: ['"Inter"', "system-ui", "-apple-system", "sans-serif"],
-        display: ['"Inter Tight"', '"Inter"', "system-ui", "sans-serif"],
+        sans: ["ui-sans-serif", "system-ui", "-apple-system", '"Segoe UI"', "Roboto", "sans-serif"],
+        display: ['"Iowan Old Style"', '"Palatino Linotype"', "Palatino", '"Book Antiqua"', "Georgia", "serif"],
       },
       letterSpacing: {
-        tightest: "-0.045em",
+        tightest: "-0.014em",
       },
       borderColor: {
-        DEFAULT: "rgba(120,140,170,.12)",
+        DEFAULT: "rgba(33,28,41,.12)",
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(23,33,45,.04), 0 8px 24px rgba(23,33,45,.05)",
-        lift: "0 24px 60px rgba(35,55,110,.12)",
-        glass: "0 8px 32px rgba(35,55,110,.10), inset 0 1px 0 rgba(255,255,255,.6)",
-      },
-      backdropBlur: {
-        xs: "2px",
+        soft: "0 1px 2px rgba(33,28,41,.05), 0 10px 28px -12px rgba(33,28,41,.14)",
+        lift: "0 26px 54px -22px rgba(33,28,41,.28)",
+        glass: "0 22px 44px -26px rgba(33,28,41,.42), inset 0 1px 0 rgba(255,255,255,.7)",
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.16, 1, 0.3, 1)",
