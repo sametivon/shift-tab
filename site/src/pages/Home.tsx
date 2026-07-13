@@ -4,44 +4,84 @@ import MagneticButton from "@/components/MagneticButton";
 import TiltCard from "@/components/TiltCard";
 import BrowserMock from "@/components/BrowserMock";
 import StickyStory from "@/components/StickyStory";
+import Counter from "@/components/Counter";
 import { maskLine, revealUp, scaleIn, stagger, spring, inView, useEntrance } from "@/lib/motion";
 
-/* ── shift-tab premium v3 — full-screen hero with the ⇧⇥ browser demo,
-   sticky storytelling, layered product reveals, midnight stage. ── */
+/* ── shift-tab v4 — the homepage of a premium software company:
+   studio hero → product ecosystem → what we build → services →
+   process → trust → business CTA. Every section answers the last. ── */
 
 const products = [
   {
     name: "Monday.com Inspector",
-    tag: "Free Chrome extension",
+    tag: "Live · Chrome Web Store",
     tagline: "The DevTools for monday.com",
-    body: "X-ray board schemas, run GraphQL, import subitems from CSV, bulk-update hundreds of items and export anything — right inside your boards.",
+    body: "Schema X-ray, GraphQL workspace, subitem import, bulk updates — free and open source.",
     href: "/products/extension",
     accent: "#6D5EF7",
-    chip: "boards { id name columns { id type } }",
-    stats: ["No row limits", "Open source", "Token stays local"],
+    visual: (
+      <div className="pointer-events-none select-none rounded-xl border border-hairline bg-white p-3 font-mono text-[10px] shadow-soft">
+        <div className="mb-1.5 flex items-center gap-1.5 text-[9px] text-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#6D5EF7]" /> board 5098431200
+          <span className="ml-auto rounded-full bg-softmint px-1.5 py-px text-[8px] font-bold text-emerald-600">✓ copied</span>
+        </div>
+        {[["status", "color"], ["person", "people"], ["date4", "date"]].map(([a, b]) => (
+          <div key={a} className="flex justify-between border-t border-hairline py-1">
+            <span className="text-brand">{a}</span>
+            <span className="text-muted">{b}</span>
+          </div>
+        ))}
+      </div>
+    ),
   },
   {
     name: "MondayVirtual",
-    tag: "3D workspace · SaaS",
+    tag: "Live · SaaS",
     tagline: "Your office, inside monday.com",
-    body: "A 3D team office embedded in monday.com — walk over and talk with proximity voice & video, present to a full auditorium, keep live boards on the walls.",
+    body: "A 3D team office — proximity voice & video, auditorium all-hands, live boards on the walls.",
     href: "/products/mondayvirtual",
     accent: "#10B981",
-    chip: "12 unmuted · ✋ 3 hands · Maya is presenting",
-    stats: ["Nothing to install", "Proximity audio", "Live boards in-world"],
+    visual: (
+      <div className="pointer-events-none relative h-[104px] select-none overflow-hidden rounded-xl border border-hairline shadow-soft" style={{ background: "linear-gradient(180deg,#131a2c,#1c2740)" }}>
+        <div className="absolute inset-x-0 bottom-0 h-2/3 opacity-40" style={{ background: "repeating-linear-gradient(90deg, rgba(255,255,255,.09) 0 1px, transparent 1px 26px)", transform: "perspective(220px) rotateX(50deg)", transformOrigin: "bottom" }} />
+        {[["M", "#6D5EF7", "20%"], ["J", "#10B981", "45%"], ["A", "#F59E0B", "68%"]].map(([ch, c, x]) => (
+          <span key={ch} className="absolute top-[52%] flex h-6 w-6 items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ background: c, left: x }}>
+            {ch}
+          </span>
+        ))}
+        <span className="absolute right-2 top-2 rounded-full bg-white/[.12] px-2 py-0.5 text-[8.5px] font-semibold text-white/85">🎤 12 unmuted</span>
+      </div>
+    ),
+  },
+  {
+    name: "Next product",
+    tag: "In the lab",
+    tagline: "Something new is brewing",
+    body: "The next tool in the ecosystem is under construction. Built with the same obsession — follow along.",
+    href: "https://github.com/sametivon",
+    accent: "#111827",
+    visual: (
+      <div className="pointer-events-none flex h-[104px] select-none items-center justify-center rounded-xl border border-dashed border-hairline bg-mist/60 font-mono text-[11px] text-muted">
+        <span className="animate-pulse">▍</span>&nbsp;building…
+      </div>
+    ),
   },
 ];
 
-const work = [
-  { tag: "Product", title: "Monday.com Inspector", body: "Free Chrome extension — published on the Chrome Web Store.", href: "/products/extension", accent: "#6D5EF7" },
-  { tag: "Product · SaaS", title: "MondayVirtual", body: "3D virtual office embedded in monday.com — voice, video, live boards.", href: "/products/mondayvirtual", accent: "#10B981" },
-  { tag: "Web", title: "mondayinspector.eu", body: "DevTools-positioned marketing site — React, R3F, prerendered, ranking guides.", href: "https://mondayinspector.eu", accent: "#0F172A" },
+const builds = [
+  ["◧", "Premium SaaS", "Full products from zero to production"],
+  ["⌘", "AI tools & agents", "Copilots, automations, agentic workflows"],
+  ["⧉", "Browser extensions", "Store-published, minimal-permission"],
+  ["✦", "Productivity software", "Tools that respect attention"],
+  ["◈", "Custom automation", "Systems that remove busywork"],
+  ["▣", "Product websites", "Fast, prerendered, conversion-focused"],
 ];
 
-const principles = [
-  { k: "Simple", d: "One clear job per screen. Software you understand in the first five seconds." },
-  { k: "Soft", d: "Warm surfaces, calm motion, nothing shouting. Premium without the noise." },
-  { k: "Fast", d: "Like the shortcut we're named after — instant, local-first, respectful of your time." },
+const process = [
+  { n: "01", t: "Discover", d: "A working session, not a discovery phase. We map the highest-leverage build in days." },
+  { n: "02", t: "Design", d: "A prototype you can click — motion, states and edge cases included." },
+  { n: "03", t: "Build", d: "AI-accelerated, human-finished. Short cycles, visible progress, no black box." },
+  { n: "04", t: "Run", d: "Ship, measure, iterate. We stay accountable after launch." },
 ];
 
 export default function Home() {
@@ -49,14 +89,14 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>shift-tab — tools for people who know their shortcuts</title>
+        <title>shift-tab — AI software studio · products & custom development</title>
         <meta
           name="description"
-          content="shift-tab is an independent IT studio: our own products for the monday.com ecosystem (Monday.com Inspector, MondayVirtual) plus client services — monday.com consulting, custom apps & extensions, web & product development, AI-assisted delivery."
+          content="shift-tab is an AI software studio. We build premium SaaS, browser extensions and productivity tools (Monday.com Inspector, MondayVirtual) — and partner with businesses on AI consulting, custom software and enterprise monday.com solutions."
         />
         <link rel="canonical" href="https://shift-tab.eu/" />
-        <meta property="og:title" content="shift-tab — tools for people who know their shortcuts" />
-        <meta property="og:description" content="A product studio for the monday.com ecosystem: Monday.com Inspector (the DevTools for monday.com) and MondayVirtual (your office, inside monday.com)." />
+        <meta property="og:title" content="shift-tab — AI software studio" />
+        <meta property="og:description" content="Products people love + AI-powered custom development. Monday.com Inspector, MondayVirtual, and software built for your business." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://shift-tab.eu/" />
         <script type="application/ld+json">
@@ -65,22 +105,31 @@ export default function Home() {
             "@type": "Organization",
             name: "shift-tab",
             url: "https://shift-tab.eu",
-            description: "Product studio crafting software for the monday.com ecosystem: Monday.com Inspector and MondayVirtual.",
+            description: "AI software studio: premium SaaS products, browser extensions and custom AI-powered development.",
             parentOrganization: { "@type": "Organization", name: "Fruition Services", url: "https://www.fruitionservices.io" },
           })}
         </script>
       </Head>
 
-      {/* ── Hero: full-screen product reveal ── */}
+      {/* ── Hero: the studio, alive ── */}
       <section className="relative flex min-h-[100svh] flex-col overflow-hidden px-6 pt-32 sm:pt-36">
         <div className="relative z-10 mx-auto max-w-3xl text-center">
+          <motion.span
+            initial={entrance({ opacity: 0, y: 10, filter: "blur(4px)" })}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ ...spring, delay: 0.15 }}
+            className="eyebrow mb-6 inline-block"
+          >
+            AI software studio
+          </motion.span>
+
           <motion.h1
             variants={stagger(0.1, 0.25)}
             initial={entrance("hidden")}
             animate="show"
-            className="font-display text-[clamp(2.5rem,5.8vw,4.4rem)] font-extrabold leading-[1.02] tracking-tightest text-ink"
+            className="font-display text-[clamp(2.6rem,6vw,4.6rem)] font-extrabold leading-[1.02] tracking-tightest text-ink"
           >
-            {["Tools for people who", "know their shortcuts."].map((line, i) => (
+            {["Software with the", "quality switched on."].map((line, i) => (
               <span key={i} className="block overflow-hidden pb-[0.08em]">
                 <motion.span variants={maskLine} className="block">
                   {i === 1 ? <span className="text-gradient">{line}</span> : line}
@@ -94,87 +143,71 @@ export default function Home() {
             initial={entrance("hidden")}
             animate="show"
             transition={{ delay: 0.7 }}
-            className="mx-auto mt-5 max-w-xl text-[1.06rem] leading-relaxed text-muted"
+            className="mx-auto mt-6 max-w-xl text-[1.1rem] leading-relaxed text-muted"
           >
-            An independent IT studio for the monday.com ecosystem — we ship our own products,
-            and design, build and automate for clients who want the same craft.
+            We ship our own products — and build AI-powered software for businesses
+            that want the same craft.
           </motion.p>
 
           <motion.div
             initial={entrance({ opacity: 0, y: 14 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...spring, delay: 0.85 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-3"
+            className="mt-9 flex flex-wrap items-center justify-center gap-3"
           >
             <MagneticButton href="/#products">
-              Meet the products <span aria-hidden>→</span>
+              Explore the products <span aria-hidden>→</span>
             </MagneticButton>
             <MagneticButton variant="ghost" href="/#contact">
-              Start a project
+              Build with us
             </MagneticButton>
           </motion.div>
         </div>
 
-        {/* the ⇧⇥ browser demo — the brand shortcut, working */}
-        <div className="relative z-10 mx-auto mt-14 w-full pb-16">
+        <div className="relative z-10 mx-auto mt-16 w-full pb-20">
           <BrowserMock />
         </div>
       </section>
 
-      {/* ── Sticky storytelling ── */}
-      <StickyStory />
-
-      {/* ── Products ── */}
-      <section id="products" className="relative mx-auto max-w-6xl px-6 py-14">
+      {/* ── Product ecosystem ── */}
+      <section id="products" className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           variants={stagger(0.08)}
           initial={entrance("hidden")}
           whileInView="show"
           viewport={inView}
-          className="mx-auto mb-10 max-w-2xl text-center"
+          className="mx-auto mb-12 max-w-2xl text-center"
         >
-          <motion.span variants={revealUp} className="eyebrow">Products</motion.span>
-          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(2rem,4.5vw,3.2rem)] font-extrabold leading-[1.05] tracking-tightest text-ink">
-            Two products. One obsession.
+          <motion.span variants={revealUp} className="eyebrow">The ecosystem</motion.span>
+          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(2.1rem,4.8vw,3.4rem)] font-extrabold leading-[1.04] tracking-tightest text-ink">
+            Products, not projects
           </motion.h2>
-          <motion.p variants={revealUp} className="mt-4 text-[1.05rem] leading-relaxed text-muted">
-            Everything we ship lives inside monday.com and gets out of your way.
+          <motion.p variants={revealUp} className="mx-auto mt-4 max-w-xl text-[1.05rem] leading-relaxed text-muted">
+            Published, maintained, iterated — one standard across everything we ship.
           </motion.p>
         </motion.div>
 
         <motion.div
-          variants={stagger(0.12)}
+          variants={stagger(0.1)}
           initial={entrance("hidden")}
           whileInView="show"
           viewport={inView}
-          className="grid gap-6 lg:grid-cols-2"
+          className="grid gap-6 lg:grid-cols-3"
         >
           {products.map((p) => (
             <motion.div key={p.name} variants={scaleIn}>
-              <a href={p.href} className="block">
-                <TiltCard className="!rounded-card !p-8">
-                  <span className="inline-flex rounded-full px-3 py-1 text-[10.5px] font-bold uppercase tracking-wider text-white" style={{ background: p.accent }}>
+              <a href={p.href} className="block h-full" {...(p.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                <TiltCard className="!rounded-card flex h-full flex-col">
+                  {p.visual}
+                  <span className="mt-5 inline-flex w-fit rounded-full px-3 py-1 text-[10.5px] font-bold uppercase tracking-wider text-white" style={{ background: p.accent }}>
                     {p.tag}
                   </span>
-                  <h3 className="mt-4 font-display text-[1.6rem] font-extrabold tracking-tightest text-ink">{p.name}</h3>
-                  <div className="mt-0.5 text-[15px] font-semibold" style={{ color: p.accent }}>{p.tagline}</div>
-                  <p className="mt-3 text-[14.5px] leading-relaxed text-muted">{p.body}</p>
-                  <div className="mt-5 rounded-xl border border-hairline bg-mist/80 px-4 py-2.5 font-mono text-[12px] text-muted">
-                    {p.chip}
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5">
-                    {p.stats.map((s) => (
-                      <span key={s} className="inline-flex items-center gap-1.5 text-[12.5px] text-muted">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style={{ color: p.accent }}>
-                          <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-bold transition-transform duration-150 group-hover:translate-x-0.5" style={{ color: p.accent }}>
-                    Explore <span aria-hidden>→</span>
-                  </div>
+                  <h3 className="mt-3 font-display text-[1.35rem] font-extrabold tracking-tightest text-ink">{p.name}</h3>
+                  <div className="mt-0.5 text-[14px] font-semibold" style={{ color: p.accent === "#111827" ? "#6D5EF7" : p.accent }}>{p.tagline}</div>
+                  <p className="mt-2.5 flex-1 text-[14px] leading-relaxed text-muted">{p.body}</p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-[13.5px] font-bold text-ink">
+                    {p.accent === "#111827" ? "Watch the lab" : "Explore"} <span aria-hidden>→</span>
+                  </span>
                 </TiltCard>
               </a>
             </motion.div>
@@ -182,117 +215,164 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ── Selected work ── */}
-      <section id="work" className="relative mx-auto max-w-6xl px-6 py-14">
+      {/* ── What we build ── */}
+      <section id="build" className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           variants={stagger(0.08)}
           initial={entrance("hidden")}
           whileInView="show"
           viewport={inView}
-          className="mx-auto mb-10 max-w-2xl text-center"
+          className="mx-auto mb-12 max-w-2xl text-center"
         >
-          <motion.span variants={revealUp} className="eyebrow">Selected work</motion.span>
-          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(2rem,4.5vw,3.2rem)] font-extrabold leading-[1.05] tracking-tightest text-ink">
-            Proof, not promises
+          <motion.span variants={revealUp} className="eyebrow">What we build</motion.span>
+          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(2.1rem,4.8vw,3.4rem)] font-extrabold leading-[1.04] tracking-tightest text-ink">
+            One studio, every layer
           </motion.h2>
         </motion.div>
         <motion.div
-          variants={stagger(0.08)}
+          variants={stagger(0.06)}
           initial={entrance("hidden")}
           whileInView="show"
           viewport={inView}
-          className="grid gap-5 sm:grid-cols-3"
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {work.map((w) => (
-            <motion.div key={w.title} variants={scaleIn}>
-              <a href={w.href} className="block" {...(w.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-                <TiltCard className="!rounded-card">
-                  <span className="inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white" style={{ background: w.accent }}>
-                    {w.tag}
-                  </span>
-                  <h3 className="mt-3 font-display text-[1.25rem] font-extrabold tracking-tightest text-ink">{w.title}</h3>
-                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{w.body}</p>
-                  <span className="mt-4 inline-block text-[13px] font-bold" style={{ color: w.accent === "#0F172A" ? "#6D5EF7" : w.accent }}>
-                    View →
-                  </span>
-                </TiltCard>
-              </a>
+          {builds.map(([icon, t, d]) => (
+            <motion.div
+              key={t}
+              variants={scaleIn}
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className="group flex items-start gap-4 rounded-card border border-hairline bg-white p-6 shadow-soft transition-shadow duration-250 hover:shadow-glowv"
+            >
+              <span className="mt-0.5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-surface font-mono text-[17px] text-brand transition-transform duration-200 group-hover:rotate-3 group-hover:scale-110">
+                {icon}
+              </span>
+              <span>
+                <h3 className="font-display text-[1.05rem] font-bold text-ink">{t}</h3>
+                <p className="mt-1 text-[13.5px] leading-relaxed text-muted">{d}</p>
+              </span>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
-      {/* ── Principles — midnight stage ── */}
-      <section id="principles" className="relative mx-auto max-w-6xl px-6 py-14">
+      {/* ── Services (sticky storytelling) ── */}
+      <StickyStory />
+
+      {/* ── Process ── */}
+      <section id="process" className="relative mx-auto max-w-6xl px-6 py-20">
+        <motion.div
+          variants={stagger(0.08)}
+          initial={entrance("hidden")}
+          whileInView="show"
+          viewport={inView}
+          className="mx-auto mb-12 max-w-2xl text-center"
+        >
+          <motion.span variants={revealUp} className="eyebrow">How we work</motion.span>
+          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(2.1rem,4.8vw,3.4rem)] font-extrabold leading-[1.04] tracking-tightest text-ink">
+            Weeks, not quarters
+          </motion.h2>
+        </motion.div>
+        <motion.div
+          variants={stagger(0.09)}
+          initial={entrance("hidden")}
+          whileInView="show"
+          viewport={inView}
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        >
+          {process.map((s, i) => (
+            <motion.div
+              key={s.n}
+              variants={scaleIn}
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className="relative rounded-card border border-hairline bg-white p-6 shadow-soft"
+            >
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[12px] font-bold text-brand">{s.n}</span>
+                {i < process.length - 1 && (
+                  <span className="ml-auto text-muted/40" aria-hidden>→</span>
+                )}
+              </div>
+              <h3 className="mt-3 font-display text-[1.15rem] font-bold text-ink">{s.t}</h3>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{s.d}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ── Trust ── */}
+      <section className="relative mx-auto max-w-6xl px-6 py-20">
+        <motion.div
+          initial={entrance({ opacity: 0, y: 24 })}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={inView}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-card border border-hairline bg-white p-10 shadow-soft sm:p-12"
+        >
+          <div className="grid gap-8 text-center sm:grid-cols-3">
+            <div>
+              <div className="font-display text-[2.6rem] font-extrabold tracking-tightest text-ink">
+                <Counter to={500} suffix="+" />
+              </div>
+              <div className="mt-1 text-[13.5px] text-muted">monday.com implementations behind the team</div>
+            </div>
+            <div>
+              <div className="font-display text-[2.6rem] font-extrabold tracking-tightest text-ink">
+                <Counter to={2} />
+              </div>
+              <div className="mt-1 text-[13.5px] text-muted">products live — Chrome Web Store & SaaS</div>
+            </div>
+            <div>
+              <div className="font-display text-[2.6rem] font-extrabold tracking-tightest text-ink">
+                <Counter to={100} suffix="%" />
+              </div>
+              <div className="mt-1 text-[13.5px] text-muted">open-source extension — audit every line</div>
+            </div>
+          </div>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-2.5">
+            {["Chrome Web Store · published", "Platinum-partner-grade delivery", "Open source (MIT)", "EU-based"].map((c) => (
+              <span key={c} className="rounded-full border border-hairline bg-mist/70 px-3.5 py-1.5 text-[12px] font-semibold text-muted">
+                {c}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── Business CTA — midnight stage ── */}
+      <section id="contact" className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           initial={entrance({ opacity: 0, y: 30 })}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={inView}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="stage relative overflow-hidden rounded-card p-10 sm:p-14"
+          className="stage relative overflow-hidden rounded-card p-12 text-center sm:p-16"
         >
-          <div className="mx-auto mb-10 max-w-2xl text-center">
-            <span className="eyebrow !text-[#a99cff]">Principles</span>
-            <h2 className="mt-4 font-display text-[clamp(1.9rem,4vw,3rem)] font-extrabold leading-tight tracking-tightest text-white">
-              Simple. Soft. Fast.
-            </h2>
-            <p className="mx-auto mt-4 max-w-md text-[1rem] leading-relaxed text-white/60">
-              Three words we hold every screen against — in that order.
-            </p>
-          </div>
-          <motion.div
-            variants={stagger(0.1)}
-            initial={entrance("hidden")}
-            whileInView="show"
-            viewport={inView}
-            className="grid gap-4 sm:grid-cols-3"
-          >
-            {principles.map((p, i) => (
-              <motion.div
-                key={p.k}
-                variants={scaleIn}
-                whileHover={{ y: -5 }}
-                transition={{ type: "spring", stiffness: 220, damping: 20 }}
-                className="rounded-card border border-white/10 bg-white/[.06] p-6 backdrop-blur-sm"
-              >
-                <div
-                  className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl font-mono text-[15px] font-bold text-white"
-                  style={{ background: `linear-gradient(135deg, ${["#6D5EF7", "#10B981", "#38BDF8"][i]}, ${["#4F46C8", "#0DA271", "#0284C7"][i]})` }}
-                >
-                  {["⌘", "✦", "⇥"][i]}
-                </div>
-                <h3 className="font-display text-[1.15rem] font-bold text-white">{p.k}</h3>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-white/60">{p.d}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ── Contact ── */}
-      <section id="contact" className="relative mx-auto max-w-3xl px-6 py-14 text-center">
-        <motion.div
-          variants={stagger(0.08)}
-          initial={entrance("hidden")}
-          whileInView="show"
-          viewport={inView}
-        >
-          <motion.span variants={revealUp} className="eyebrow">Contact</motion.span>
-          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(1.9rem,4vw,2.9rem)] font-extrabold leading-tight tracking-tightest text-ink">
-            Have a project in mind?
-          </motion.h2>
-          <motion.p variants={revealUp} className="mx-auto mt-4 max-w-md text-[1.02rem] leading-relaxed text-muted">
-            Tell us what you're building — a board, an app, a site or something nobody's built
-            yet. We reply like we ship: fast.
-          </motion.p>
-          <motion.div variants={revealUp} className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <MagneticButton href="mailto:sam@fruitionservices.io">
+          <span className="eyebrow !text-[#a99cff]">Work with shift-tab</span>
+          <h2 className="mx-auto mt-4 max-w-2xl font-display text-[clamp(2rem,4.6vw,3.3rem)] font-extrabold leading-[1.06] tracking-tightest text-white">
+            Let&apos;s build what your team actually needs.
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-[1.05rem] leading-relaxed text-white/60">
+            An AI pilot, a custom product, a monday.com platform — scoped in days,
+            shipped in weeks.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <MagneticButton variant="accent" href="mailto:sam@fruitionservices.io">
               Start a conversation <span aria-hidden>→</span>
             </MagneticButton>
-            <MagneticButton variant="ghost" href="https://github.com/sametivon">
-              See the code
+            <MagneticButton variant="ghost" href="/#products">
+              See the products first
             </MagneticButton>
-          </motion.div>
+          </div>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-white/45">
+            {["Simple", "Soft", "Fast"].map((w, i) => (
+              <span key={w} className="inline-flex items-center gap-2">
+                <span className="font-mono text-[11px]" style={{ color: ["#8b7bff", "#34d399", "#7dd3fc"][i] }}>0{i + 1}</span>
+                {w} by default
+              </span>
+            ))}
+          </div>
         </motion.div>
       </section>
     </>

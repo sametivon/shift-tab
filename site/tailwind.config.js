@@ -14,9 +14,9 @@ export default {
         softmint: "#E4F7EF", // emerald tint
         softlavender: "#ECE9FE",
         softpeach: "#FdEEE4",
-        ink: "#0F172A", // midnight
+        ink: "#111827", // midnight
         muted: "#5B6472",
-        hairline: "rgba(15,23,42,.10)",
+        hairline: "#E8E8E8",
         brand: {
           DEFAULT: "#6D5EF7", // electric violet
           500: "#6D5EF7",
@@ -37,7 +37,7 @@ export default {
         tightest: "-0.045em",
       },
       borderColor: {
-        DEFAULT: "rgba(15,23,42,.10)",
+        DEFAULT: "#E8E8E8",
       },
       borderRadius: {
         card: "24px", // the system radius for layered cards

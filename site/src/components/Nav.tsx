@@ -4,9 +4,9 @@ import { prefersReducedMotion, spring } from "@/lib/motion";
 
 const links = [
   { label: "Products", href: "/#products" },
+  { label: "What we build", href: "/#build" },
   { label: "Services", href: "/#services" },
-  { label: "Work", href: "/#work" },
-  { label: "Principles", href: "/#principles" },
+  { label: "Process", href: "/#process" },
   { label: "Contact", href: "/#contact" },
 ];
 
@@ -72,11 +72,11 @@ export default function Nav() {
         </div>
 
         <a
-          href="/#products"
+          href="/#contact"
           className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-4 py-2 text-[13.5px] font-semibold text-white shadow-[0_6px_18px_-6px_rgba(33,28,41,.5)] transition-shadow hover:shadow-[0_10px_26px_-8px_rgba(33,28,41,.55)]"
 
         >
-          Explore products
+          Start a project
         </a>
       </motion.nav>
     </motion.header>
