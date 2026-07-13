@@ -97,7 +97,12 @@ export function buildCommands(scenes: SceneMeta[]): Command[] {
       keywords: "email contact hire work build talk",
       run: ({ close }) => {
         close();
-        if (!sceneStore.travelTo("contact", { focus: true })) go("/#contact");
+        if (sceneStore.travelTo("contact")) {
+          // hand the visitor the real terminal prompt
+          document.querySelector<HTMLInputElement>("[data-prompt-input]")?.focus({ preventScroll: true });
+        } else {
+          go("/#contact");
+        }
       },
     },
   ];
