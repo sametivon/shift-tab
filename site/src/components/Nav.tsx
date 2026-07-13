@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { prefersReducedMotion, spring } from "@/lib/motion";
-
-const links = [
-  { label: "Products", href: "/#products" },
-  { label: "What we build", href: "/#build" },
-  { label: "Services", href: "/#services" },
-  { label: "Process", href: "/#process" },
-  { label: "Contact", href: "/#contact" },
-];
+import { navLinks as links } from "@/lib/navLinks";
+import MobileMenu from "@/components/MobileMenu";
 
 export default function Nav() {
   const { scrollY } = useScroll();
@@ -94,13 +88,15 @@ export default function Nav() {
           ))}
         </div>
 
-        <a
-          href="/#contact"
-          className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-4 py-2 text-[13.5px] font-semibold text-white shadow-[0_6px_18px_-6px_rgba(33,28,41,.5)] transition-shadow hover:shadow-[0_10px_26px_-8px_rgba(33,28,41,.55)]"
-
-        >
-          Start a project
-        </a>
+        <div className="flex items-center gap-2">
+          <a
+            href="/#contact"
+            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-4 py-2 text-[13.5px] font-semibold text-white shadow-[0_6px_18px_-6px_rgba(33,28,41,.5)] transition-shadow hover:shadow-[0_10px_26px_-8px_rgba(33,28,41,.55)] sm:inline-flex"
+          >
+            Start a project
+          </a>
+          <MobileMenu />
+        </div>
       </motion.nav>
     </motion.header>
   );

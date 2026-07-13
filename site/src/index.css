@@ -8,9 +8,42 @@
    transitions, quiet depth.
    ───────────────────────────────────────────────────────────────────── */
 
+/* Self-hosted variable fonts (latin subsets) — replaces the Google CDN chain.
+   ⇧/⇥ keycap glyphs intentionally fall back to the system stack, same as before. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/FrauncesVariable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/FrauncesVariable-Italic.woff2") format("woff2");
+}
+
 @layer base {
   :root {
     color-scheme: light;
+  }
+  /* Keyboard-first brand → keyboard users get a first-class focus treatment. */
+  :focus-visible {
+    outline: 2px solid #6d5ef7;
+    outline-offset: 3px;
+  }
+  .stage :focus-visible,
+  .dark-scene :focus-visible {
+    outline-color: #8b7bff;
   }
   html {
     -webkit-font-smoothing: antialiased;
