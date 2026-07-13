@@ -45,7 +45,7 @@ export default function StudioScene() {
           variants={revealUp}
           className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-hairline pt-6 font-mono text-[11.5px] text-muted"
         >
-          {["Chrome Web Store · published", "MIT open source", "EU-based", "a Fruition Services studio"].map(
+          {["Chrome Web Store · published", "MIT open source", "EU-based", "independent · made in the lab"].map(
             (c, i) => (
               <span key={c} className="inline-flex items-center gap-3">
                 {i > 0 && <span aria-hidden className="text-hairline">/</span>}

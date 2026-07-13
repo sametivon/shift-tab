@@ -49,9 +49,10 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "shift-tab",
+            alternateName: "shift-tab lab",
             url: "https://shift-tab.eu",
+            email: "hello@shift-tab.eu",
             description: "AI software studio: premium SaaS products, browser extensions and custom AI-powered development.",
-            parentOrganization: { "@type": "Organization", name: "Fruition Services", url: "https://www.fruitionservices.io" },
           })}
         </script>
       </Head>

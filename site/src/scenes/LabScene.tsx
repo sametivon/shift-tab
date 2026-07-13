@@ -52,11 +52,11 @@ function Workbench({ running }: { running: boolean }) {
         style={{ background: "radial-gradient(60% 50% at 42% 38%, rgba(139,123,255,.14), transparent 70%)" }}
       />
 
-      {/* floating workshop chips */}
+      {/* floating workshop chips — parked clear of the card, pipeline and strip */}
       {[
         ["prototype_0" + ((loop % 2) + 4), "left-[7%] top-[9%]", 7],
-        ["agents.ts", "right-[9%] top-[16%]", 8.5],
-        ["⌘⇧B", "left-[12%] bottom-[12%]", 6],
+        ["agents.ts", "left-[58%] top-[64%]", 8.5],
+        ["⌘⇧B", "left-[10%] bottom-[28%]", 6],
       ].map(([t, pos, dur]) => (
         <motion.span
           key={t as string}
@@ -106,6 +106,24 @@ function Workbench({ running }: { running: boolean }) {
               />
             ))}
           </motion.div>
+        </AnimatePresence>
+
+        {/* the hand-off: while the artifact lifts off, its departure is
+            announced in place — the bench never reads as broken-empty */}
+        <AnimatePresence>
+          {shipping && (
+            <motion.div
+              initial={{ opacity: 0, y: 18, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
+              className="absolute inset-x-0 top-[38%] flex justify-center"
+            >
+              <span className="flex items-center gap-2 rounded-xl border border-[#8b7bff]/40 bg-[#6D5EF7]/20 px-3.5 py-2 font-mono text-[11px] font-semibold text-[#c7bfff] shadow-glowv backdrop-blur-sm">
+                ▲ shipped · prototype_0{(loop % 2) + 4}
+              </span>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
 
