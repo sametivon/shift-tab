@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
-import { spring } from "@/lib/motion";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { prefersReducedMotion, spring } from "@/lib/motion";
 
 const links = [
   { label: "Products", href: "/#products" },
@@ -12,7 +12,7 @@ const links = [
 
 export default function Nav() {
   const { scrollY } = useScroll();
-  const reduced = useReducedMotion();
+  const reduced = prefersReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
 

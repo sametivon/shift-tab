@@ -1,5 +1,17 @@
 import type { Variants, Transition } from "framer-motion";
-import { useReducedMotion } from "framer-motion";
+
+/**
+ * Synchronous reduced-motion check. Deliberately NOT framer's
+ * useReducedMotion(): that hook returns false on the first (hydration)
+ * render and flips after mount — which bakes the hidden `initial` into
+ * the DOM and then strands the reveal animation mid-flight when the
+ * preference kicks in. Reading matchMedia synchronously gives the truth
+ * on the very first client render. (SSR renders the hidden state; for
+ * reduced-motion users React recovers via client re-render.)
+ */
+export const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
  * Returns the `initial` prop to use for an entrance animation. Under
@@ -8,7 +20,7 @@ import { useReducedMotion } from "framer-motion";
  * the given hidden state so the reveal plays.
  */
 export function useEntrance() {
-  const reduced = useReducedMotion();
+  const reduced = prefersReducedMotion();
   return (hidden: unknown) => (reduced ? false : (hidden as never));
 }
 

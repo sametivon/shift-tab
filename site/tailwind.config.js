@@ -1,43 +1,57 @@
 /** @type {import('tailwindcss').Config} */
-// Warm-editorial identity shared with mondayvirtual.eu: paper, ink, violet,
-// serif display. Token NAMES stay stable so components restyle automatically.
+// shift-tab premium system v3 — Midnight / Electric Violet / Emerald on warm
+// off-white. Token NAMES stay stable so existing components restyle in place.
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        paper: "#faf7f2", // warm paper background
-        mist: "#f3eee6", // paper-2
-        card: "#ffffff",
-        surface: "#efe9fb", // violet-tinted surface
-        softblue: "#e4ecf7",
-        softmint: "#e2f3ea",
-        softlavender: "#ece5fb",
-        softpeach: "#fbe7dd",
-        ink: "#211c29",
-        muted: "#6b6478",
-        hairline: "rgba(33,28,41,.12)",
+        paper: "#FAFAFA", // page background
+        mist: "#F1F1F3", // secondary surface
+        card: "#FFFFFF",
+        surface: "#EFEDFE", // violet-tinted chip surface
+        softblue: "#E7EDFB",
+        softmint: "#E4F7EF", // emerald tint
+        softlavender: "#ECE9FE",
+        softpeach: "#FdEEE4",
+        ink: "#0F172A", // midnight
+        muted: "#5B6472",
+        hairline: "rgba(15,23,42,.10)",
         brand: {
-          DEFAULT: "#6c5ce7",
-          500: "#6c5ce7",
-          600: "#5a4bd4",
-          indigo: "#4a3fbe",
+          DEFAULT: "#6D5EF7", // electric violet
+          500: "#6D5EF7",
+          600: "#5B4CE6",
+          indigo: "#4F46C8",
+        },
+        emerald: {
+          DEFAULT: "#10B981",
+          500: "#10B981",
+          600: "#0DA271",
         },
       },
       fontFamily: {
-        sans: ["ui-sans-serif", "system-ui", "-apple-system", '"Segoe UI"', "Roboto", "sans-serif"],
-        display: ['"Iowan Old Style"', '"Palatino Linotype"', "Palatino", '"Book Antiqua"', "Georgia", "serif"],
+        sans: ['"Inter"', "ui-sans-serif", "system-ui", "-apple-system", "sans-serif"],
+        display: ['"Inter Tight"', '"Inter"', "system-ui", "sans-serif"],
       },
       letterSpacing: {
-        tightest: "-0.014em",
+        tightest: "-0.045em",
       },
       borderColor: {
-        DEFAULT: "rgba(33,28,41,.12)",
+        DEFAULT: "rgba(15,23,42,.10)",
+      },
+      borderRadius: {
+        card: "24px", // the system radius for layered cards
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(33,28,41,.05), 0 10px 28px -12px rgba(33,28,41,.14)",
-        lift: "0 26px 54px -22px rgba(33,28,41,.28)",
-        glass: "0 22px 44px -26px rgba(33,28,41,.42), inset 0 1px 0 rgba(255,255,255,.7)",
+        soft: "0 1px 2px rgba(15,23,42,.05), 0 12px 32px -16px rgba(15,23,42,.14)",
+        lift: "0 32px 64px -24px rgba(15,23,42,.22)",
+        glass: "0 24px 48px -24px rgba(15,23,42,.35), inset 0 1px 0 rgba(255,255,255,.7)",
+        glowv: "0 12px 40px -10px rgba(109,94,247,.45)",
+      },
+      transitionDuration: {
+        DEFAULT: "200ms",
+        150: "150ms",
+        250: "250ms",
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.16, 1, 0.3, 1)",

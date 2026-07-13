@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "shift-tab \u2014 a product studio for the monday.com ecosystem. Tools for people who know their shortcuts.",
+  "description": "shift-tab — a product studio for the monday.com ecosystem. Tools for people who know their shortcuts.",
   "scripts": {
     "dev": "vite",
     "build": "node scripts/prebuild.mjs && vite-react-ssg build && node scripts/postbuild.mjs",
@@ -13,7 +13,7 @@
     "@react-three/drei": "^9.114.0",
     "@react-three/fiber": "^8.17.10",
     "framer-motion": "^11.11.0",
-    "gsap": "^3.12.5",
+    "gsap": "^3.15.0",
     "lenis": "^1.1.14",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
