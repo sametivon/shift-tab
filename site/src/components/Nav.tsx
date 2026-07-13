@@ -1,31 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { spring } from "@/lib/motion";
 import { navLinks as links } from "@/lib/navLinks";
+import { useScenes } from "@/lib/sceneStore";
+import { openPalette } from "@/components/palette/CommandPalette";
 import MobileMenu from "@/components/MobileMenu";
 
 export default function Nav() {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
-  const [section, setSection] = useState<string>("");
 
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 16));
 
-  // scroll-spy: which section owns the viewport right now
-  useEffect(() => {
-    const ids = ["products", "build", "services", "process", "contact"];
-    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
-    if (!els.length) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setSection(`/#${e.target.id}`);
-      },
-      { rootMargin: "-30% 0px -55% 0px" }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
+  // scroll-spy straight from the scene registry (empty on product pages)
+  const { activeId } = useScenes();
+  const section = activeId ? `/#${activeId}` : "";
 
   return (
     <motion.header
@@ -88,6 +78,14 @@ export default function Nav() {
         </div>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={openPalette}
+            aria-label="Open command palette"
+            className="key !rounded-full !px-2.5 !py-1.5 !text-[11px] transition-transform duration-150 hover:scale-105"
+          >
+            ⌘K
+          </button>
           <a
             href="/#contact"
             className="hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-ink px-4 py-2 text-[13.5px] font-semibold text-white shadow-[0_6px_18px_-6px_rgba(33,28,41,.5)] transition-shadow hover:shadow-[0_10px_26px_-8px_rgba(33,28,41,.55)] sm:inline-flex"

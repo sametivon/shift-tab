@@ -4,6 +4,8 @@ import SkipLink from "@/components/SkipLink";
 import SmoothScroll from "@/components/SmoothScroll";
 import Nav from "@/components/Nav";
 import Footer from "@/sections/Footer";
+import CommandPalette from "@/components/palette/CommandPalette";
+import GhostKeys from "@/components/scene/GhostKeys";
 
 export default function Layout() {
   return (
@@ -21,6 +23,8 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <CommandPalette />
+      <GhostKeys />
     </MotionConfig>
   );
 }
