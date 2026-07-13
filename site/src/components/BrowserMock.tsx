@@ -82,6 +82,13 @@ function InspectorPane({ sub, reduced }: { sub: number; reduced: boolean }) {
             </motion.div>
           ))}
         </div>
+        <div className="mt-2.5 flex gap-1.5">
+          {["▶ Query this board", "⇪ Import CSV", "⬇ Export"].map((a) => (
+            <span key={a} className="rounded-lg border border-hairline bg-mist/70 px-2.5 py-1.5 text-[9.5px] font-semibold text-muted">
+              {a}
+            </span>
+          ))}
+        </div>
         <AnimatePresence>
           {toast && (
             <motion.div
@@ -259,12 +266,12 @@ function FloatingBits({ px, py }: { px: any; py: any }) {
   const rx = useTransform(px, (v: number) => v * 18);
   const ry = useTransform(py, (v: number) => v * 12);
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-30 hidden xl:block">
       <motion.div
         style={{ x: lx, y: ly }}
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-16 top-16 rounded-xl border border-hairline bg-white px-3 py-2 font-mono text-[10.5px] text-muted shadow-soft"
+        className="absolute -left-32 top-14 rounded-xl border border-hairline bg-white px-3 py-2 font-mono text-[10.5px] text-muted shadow-soft"
       >
         200 · <span className="text-emerald-600">88 ms</span>
       </motion.div>
@@ -272,7 +279,7 @@ function FloatingBits({ px, py }: { px: any; py: any }) {
         style={{ x: rx, y: ry }}
         animate={{ y: [0, 9, 0] }}
         transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -right-20 top-32 flex items-center gap-1.5 rounded-xl border border-hairline bg-white px-3 py-2 text-[10.5px] font-semibold text-ink shadow-soft"
+        className="absolute -right-36 top-28 flex items-center gap-1.5 rounded-xl border border-hairline bg-white px-3 py-2 text-[10.5px] font-semibold text-ink shadow-soft"
       >
         <span className="flex h-4 w-4 items-center justify-center rounded-full bg-softmint text-[9px] text-emerald-600">✓</span>
         142 rows imported
@@ -281,7 +288,7 @@ function FloatingBits({ px, py }: { px: any; py: any }) {
         style={{ x: lx, y: ry }}
         animate={{ y: [0, -6, 0] }}
         transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-10 bottom-10 flex items-center gap-1.5 rounded-xl border border-hairline bg-white px-3 py-2 text-[10.5px] font-semibold text-muted shadow-soft"
+        className="absolute -left-28 bottom-8 flex items-center gap-1.5 rounded-xl border border-hairline bg-white px-3 py-2 text-[10.5px] font-semibold text-muted shadow-soft"
       >
         <span className="pulse-dot-violet h-1.5 w-1.5 rounded-full bg-brand" /> live inside monday.com
       </motion.div>
@@ -413,17 +420,17 @@ export default function BrowserMock() {
           </AnimatePresence>
         </div>
 
-        <div className="relative h-[300px] sm:h-[330px]">
-          <AnimatePresence mode="wait">
+        <div className="relative h-[290px] overflow-hidden sm:h-[310px]">
+          <AnimatePresence initial={false}>
             <motion.div
               key={TABS[active].id}
-              initial={reduced ? false : { opacity: 0, x: 22 }}
+              initial={reduced ? false : { opacity: 0, x: 26 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -22 }}
-              transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-              className="h-full"
+              exit={{ opacity: 0, x: -26 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-0"
             >
-              <Pane sub={sub} reduced={reduced} />
+              <Pane sub={Math.max(sub, 0)} reduced={reduced} />
             </motion.div>
           </AnimatePresence>
 
@@ -431,10 +438,11 @@ export default function BrowserMock() {
           {!reduced && cursor && (
             <motion.div
               className="pointer-events-none absolute z-20"
+              initial={{ left: "50%", top: "58%" }}
               animate={{ left: `${cursor.x}%`, top: `${cursor.y}%`, scale: cursor.click ? [1, 0.82, 1] : 1 }}
               transition={{ left: { type: "spring", stiffness: 90, damping: 17 }, top: { type: "spring", stiffness: 90, damping: 17 }, scale: { duration: 0.35, delay: 0.5 } }}
             >
-              <svg width="17" height="17" viewBox="0 0 24 24" className="drop-shadow-md">
+              <svg width="21" height="21" viewBox="0 0 24 24" style={{ filter: "drop-shadow(0 2px 4px rgba(15,23,42,.4))" }}>
                 <path d="M5 3l14 8-6.5 1.5L9 19 5 3z" fill="#111827" stroke="#fff" strokeWidth="1.4" />
               </svg>
               {cursor.click && (
