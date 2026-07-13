@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import Home from "@/pages/Home";
 import ProductExtension from "@/pages/ProductExtension";
 import ProductVirtual from "@/pages/ProductVirtual";
+import Studio from "@/pages/Studio";
 import NotFound from "@/pages/NotFound";
 
 /* Pretty extensionless URLs: GitHub Pages serves /products/extension from
@@ -17,6 +18,7 @@ export const routes: RouteRecord[] = [
       { path: "index.html", element: <Home /> },
       { path: "products/extension", element: <ProductExtension /> },
       { path: "products/mondayvirtual", element: <ProductVirtual /> },
+      { path: "studio", element: <Studio /> },
       { path: "404.html", element: <NotFound /> },
       { path: "*", element: <NotFound /> },
     ],

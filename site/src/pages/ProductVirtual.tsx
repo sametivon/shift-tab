@@ -1,7 +1,10 @@
+import { useRef } from "react";
 import { Head } from "vite-react-ssg";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
 import TiltCard from "@/components/TiltCard";
+import StageFrame from "@/components/stages/StageFrame";
+import VirtualStage from "@/components/stages/VirtualStage";
 import { revealUp, scaleIn, stagger, inView, useEntrance } from "@/lib/motion";
 
 const features = [
@@ -15,6 +18,8 @@ const features = [
 
 export default function ProductVirtual() {
   const entrance = useEntrance();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const stageOn = useInView(stageRef, { amount: 0.35 });
   return (
     <>
       <Head>
@@ -40,7 +45,7 @@ export default function ProductVirtual() {
           <motion.h1 variants={revealUp} className="font-display text-[clamp(2.2rem,5vw,3.6rem)] font-extrabold leading-[1.08] tracking-tightest text-ink">
             Everyone&apos;s online.
             <br />
-            <span className="text-gradient">Nobody&apos;s together.</span>
+            <span className="font-serif font-medium italic tracking-normal text-gradient">Nobody&apos;s together.</span>
           </motion.h1>
           <motion.p variants={revealUp} className="mx-auto mt-5 max-w-xl text-[1.05rem] leading-relaxed text-muted">
             MondayVirtual turns monday.com into a 3D office — walk over and talk, present to a
@@ -55,6 +60,20 @@ export default function ProductVirtual() {
             </MagneticButton>
           </motion.div>
         </motion.header>
+
+        {/* the office performs itself — same live stage as the home journey */}
+        <motion.div
+          ref={stageRef}
+          initial={entrance({ opacity: 0, y: 36, scale: 0.97 })}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={inView}
+          transition={{ type: "spring", stiffness: 110, damping: 18 }}
+          className="mx-auto mt-14 max-w-4xl"
+        >
+          <StageFrame host="office.mondayvirtual.eu" label="monday.virtual" accent="#10B981">
+            <VirtualStage running={stageOn} />
+          </StageFrame>
+        </motion.div>
 
         <motion.div
           variants={stagger(0.07)}

@@ -55,6 +55,14 @@ export function buildCommands(scenes: SceneMeta[]): Command[] {
 
   const links: Command[] = [
     {
+      id: "l:studio",
+      title: "The studio",
+      group: "Links",
+      hint: "manifesto · who's behind this",
+      keywords: "about manifesto team story values studio",
+      run: () => go("/studio"),
+    },
+    {
       id: "l:store",
       title: "Chrome Web Store",
       group: "Links",

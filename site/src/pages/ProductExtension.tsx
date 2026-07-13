@@ -1,7 +1,10 @@
+import { useRef } from "react";
 import { Head } from "vite-react-ssg";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
 import TiltCard from "@/components/TiltCard";
+import StageFrame from "@/components/stages/StageFrame";
+import InspectorStage from "@/components/stages/InspectorStage";
 import { revealUp, scaleIn, stagger, inView, useEntrance } from "@/lib/motion";
 
 const features = [
@@ -15,6 +18,8 @@ const features = [
 
 export default function ProductExtension() {
   const entrance = useEntrance();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const stageOn = useInView(stageRef, { amount: 0.35 });
   return (
     <>
       <Head>
@@ -38,7 +43,8 @@ export default function ProductExtension() {
             Free Chrome extension · Open source
           </motion.span>
           <motion.h1 variants={revealUp} className="font-display text-[clamp(2.2rem,5vw,3.6rem)] font-extrabold leading-[1.08] tracking-tightest text-ink">
-            The DevTools <span className="text-gradient">for monday.com</span>
+            The DevTools{" "}
+            <span className="font-serif font-medium italic tracking-normal text-gradient">for monday.com</span>
           </motion.h1>
           <motion.p variants={revealUp} className="mx-auto mt-5 max-w-xl text-[1.05rem] leading-relaxed text-muted">
             Inspect schemas, run GraphQL, import subitems, bulk-update and export — a precise,
@@ -53,6 +59,20 @@ export default function ProductExtension() {
             </MagneticButton>
           </motion.div>
         </motion.header>
+
+        {/* the product performs itself — same live stage as the home journey */}
+        <motion.div
+          ref={stageRef}
+          initial={entrance({ opacity: 0, y: 36, scale: 0.97 })}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={inView}
+          transition={{ type: "spring", stiffness: 110, damping: 18 }}
+          className="mx-auto mt-14 max-w-4xl"
+        >
+          <StageFrame host="monday.com/boards/5098431200" label="monday.inspector" accent="#6D5EF7">
+            <InspectorStage running={stageOn} />
+          </StageFrame>
+        </motion.div>
 
         <motion.div
           variants={stagger(0.07)}
