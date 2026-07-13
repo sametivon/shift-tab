@@ -32,7 +32,7 @@ export default function PromptScene() {
   const send = () => {
     const subject = encodeURIComponent("New project — via shift-tab.eu");
     const body = encodeURIComponent(draft.trim() ? draft.trim() : "Hi Sam — let's talk about a build.");
-    window.location.href = `mailto:sam@fruitionservices.io?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:hello@shift-tab.eu?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -72,7 +72,7 @@ export default function PromptScene() {
               {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => (
                 <span key={c} className="h-2.5 w-2.5 rounded-full" style={{ background: c }} />
               ))}
-              <span className="ml-2 font-mono text-[10.5px] text-white/40">sam@shift-tab — zsh</span>
+              <span className="ml-2 font-mono text-[10.5px] text-white/40">hello@shift-tab — zsh</span>
             </div>
             <div className="px-4 py-4 font-mono text-[12.5px] leading-relaxed sm:px-5">
               {HISTORY.map((h, i) => (
@@ -121,7 +121,7 @@ export default function PromptScene() {
           </motion.div>
 
           <motion.div variants={revealUp} className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <MagneticButton variant="accent" href="mailto:sam@fruitionservices.io">
+            <MagneticButton variant="accent" href="mailto:hello@shift-tab.eu">
               Start a conversation <span aria-hidden>→</span>
             </MagneticButton>
             <MagneticButton variant="ghost" href="/#products">

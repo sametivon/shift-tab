@@ -40,7 +40,7 @@ export default function Studio() {
         <title>The studio — shift-tab | AI software studio</title>
         <meta
           name="description"
-          content="shift-tab is an AI software studio inside Fruition Services: two live products (Monday.com Inspector, MondayVirtual), the next one already in the lab, and custom AI-powered builds for businesses."
+          content="shift-tab lab is an independent AI software studio: two live products (Monday.com Inspector, MondayVirtual), the next one already in the lab, and custom AI-powered builds for businesses."
         />
         <link rel="canonical" href="https://shift-tab.eu/studio" />
       </Head>
@@ -64,16 +64,13 @@ export default function Studio() {
           </motion.h1>
           <motion.div variants={revealUp} className="mt-8 space-y-5 text-[1.08rem] leading-relaxed text-muted">
             <p>
-              shift-tab grew out of{" "}
-              <a href="https://www.fruitionservices.io" target="_blank" rel="noopener noreferrer" className="link-draw font-semibold text-ink">
-                Fruition Services
-              </a>
-              , a monday.com partner with 500+ implementations behind it. After years of watching
-              teams fight their tools, we started building the tools we wished existed — and
-              publishing them.
+              shift-tab started as a lab. Years of building on monday.com — 500+ implementations&apos;
+              worth of experience behind the team — kept surfacing the same thought: the tools we
+              wished existed didn&apos;t. So we built them, published them, and the lab became the
+              company.
             </p>
             <p>
-              Today that's two live products — Monday.com Inspector on the Chrome Web Store and
+              Today that&apos;s two live products — Monday.com Inspector on the Chrome Web Store and
               MondayVirtual — with the next one already on the bench. Between releases, we take on
               a small number of client builds: AI pilots, custom products, monday.com platform work.
             </p>
@@ -149,7 +146,7 @@ export default function Studio() {
             ))}
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <MagneticButton href="mailto:sam@fruitionservices.io">
+            <MagneticButton href="mailto:hello@shift-tab.eu">
               Start a conversation <span aria-hidden>→</span>
             </MagneticButton>
             <MagneticButton variant="ghost" href="/#products">

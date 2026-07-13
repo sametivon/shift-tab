@@ -25,12 +25,13 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-hairline pt-6 text-[13px] text-muted sm:flex-row">
-          <span>© 2026 shift-tab · a Fruition Services studio</span>
+          <span>© 2026 shift-tab lab · an independent software studio</span>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <a href="/products/extension" className="hover:text-ink">Monday.com Inspector</a>
             <a href="/products/mondayvirtual" className="hover:text-ink">MondayVirtual</a>
+            <a href="/studio" className="hover:text-ink">The studio</a>
             <a href="https://github.com/sametivon" target="_blank" rel="noopener noreferrer" className="hover:text-ink">GitHub</a>
-            <a href="mailto:sam@fruitionservices.io" className="hover:text-ink">Contact</a>
+            <a href="mailto:hello@shift-tab.eu" className="hover:text-ink">Contact</a>
           </div>
         </div>
       </div>
