@@ -37,6 +37,53 @@ const principles = [
   { k: "Fast", d: "Like the shortcut we're named after — everything responds now, works locally, respects your time." },
 ];
 
+const services = [
+  {
+    icon: "◧",
+    title: "monday.com consulting",
+    body: "Workspace architecture, implementations, automations, dashboards and migrations — Platinum-partner-grade delivery.",
+  },
+  {
+    icon: "⌘",
+    title: "Custom apps & extensions",
+    body: "monday.com board apps, API integrations and browser extensions built to order — the same craft behind Inspector.",
+  },
+  {
+    icon: "◈",
+    title: "Web & product development",
+    body: "Premium marketing sites and full products — from landing pages that convert to embedded 3D SaaS.",
+  },
+  {
+    icon: "✦",
+    title: "AI-assisted delivery",
+    body: "AI agents, workflow automation and AI-accelerated builds — it's how we ship this fast, and we set it up for you too.",
+  },
+];
+
+const work = [
+  {
+    tag: "Product",
+    title: "Monday.com Inspector",
+    body: "Free Chrome extension — the DevTools for monday.com. Published on the Chrome Web Store.",
+    href: "/products/extension",
+    accent: "#4a63e7",
+  },
+  {
+    tag: "Product · SaaS",
+    title: "MondayVirtual",
+    body: "A 3D virtual office embedded in monday.com — proximity voice & video, auditorium, live boards.",
+    href: "/products/mondayvirtual",
+    accent: "#6c5ce7",
+  },
+  {
+    tag: "Web",
+    title: "mondayinspector.eu",
+    body: "DevTools-positioned marketing site — React, R3F, prerendered for SEO, 10 pages, guides that rank.",
+    href: "https://mondayinspector.eu",
+    accent: "#0a9a6e",
+  },
+];
+
 export default function Home() {
   const entrance = useEntrance();
   return (
@@ -45,7 +92,7 @@ export default function Home() {
         <title>shift-tab — tools for people who know their shortcuts</title>
         <meta
           name="description"
-          content="shift-tab is a product studio crafting fast, precise, beautiful software for the monday.com ecosystem — from free developer tooling (Monday.com Inspector) to 3D virtual offices (MondayVirtual)."
+          content="shift-tab is an independent IT studio: our own products for the monday.com ecosystem (Monday.com Inspector, MondayVirtual) plus client services — monday.com consulting, custom apps & extensions, web & product development, AI-assisted delivery."
         />
         <link rel="canonical" href="https://shift-tab.eu/" />
         <meta property="og:title" content="shift-tab — tools for people who know their shortcuts" />
@@ -101,8 +148,8 @@ export default function Home() {
             transition={{ delay: 0.8 }}
             className="mx-auto mt-6 max-w-xl text-[1.05rem] leading-relaxed text-muted"
           >
-            shift-tab is a product studio crafting fast, precise, beautiful software for the
-            monday.com ecosystem — from free developer tooling to full 3D workspaces.
+            shift-tab is an independent IT studio: we ship our own products for the monday.com
+            ecosystem — and design, build and automate for clients who want the same craft.
           </motion.p>
 
           <motion.div
@@ -183,6 +230,88 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* ── Services ── */}
+      <section id="services" className="relative mx-auto max-w-6xl px-6 py-10">
+        <motion.div
+          variants={stagger(0.08)}
+          initial={entrance("hidden")}
+          whileInView="show"
+          viewport={inView}
+          className="mx-auto mb-8 max-w-2xl text-center"
+        >
+          <motion.span variants={revealUp} className="eyebrow">Services</motion.span>
+          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] leading-tight tracking-tightest text-ink">
+            What we build for clients
+          </motion.h2>
+          <motion.p variants={revealUp} className="mt-4 text-[1.05rem] leading-relaxed text-muted">
+            The same hands that ship our products are for hire — end to end, design to deploy.
+          </motion.p>
+        </motion.div>
+        <motion.div
+          variants={stagger(0.08)}
+          initial={entrance("hidden")}
+          whileInView="show"
+          viewport={inView}
+          className="grid gap-4 sm:grid-cols-2"
+        >
+          {services.map((s) => (
+            <motion.div key={s.title} variants={scaleIn}>
+              <TiltCard>
+                <div className="flex items-start gap-4">
+                  <span className="mt-0.5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-surface font-mono text-[18px] text-brand-indigo">
+                    {s.icon}
+                  </span>
+                  <span>
+                    <h3 className="font-display text-[1.15rem] text-ink">{s.title}</h3>
+                    <p className="mt-1.5 text-[14px] leading-relaxed text-muted">{s.body}</p>
+                  </span>
+                </div>
+              </TiltCard>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ── Selected work ── */}
+      <section id="work" className="relative mx-auto max-w-6xl px-6 py-10">
+        <motion.div
+          variants={stagger(0.08)}
+          initial={entrance("hidden")}
+          whileInView="show"
+          viewport={inView}
+          className="mx-auto mb-8 max-w-2xl text-center"
+        >
+          <motion.span variants={revealUp} className="eyebrow">Selected work</motion.span>
+          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] leading-tight tracking-tightest text-ink">
+            Proof, not promises
+          </motion.h2>
+        </motion.div>
+        <motion.div
+          variants={stagger(0.08)}
+          initial={entrance("hidden")}
+          whileInView="show"
+          viewport={inView}
+          className="grid gap-4 sm:grid-cols-3"
+        >
+          {work.map((w) => (
+            <motion.div key={w.title} variants={scaleIn}>
+              <a href={w.href} className="block" {...(w.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                <TiltCard>
+                  <span className="inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white" style={{ background: w.accent }}>
+                    {w.tag}
+                  </span>
+                  <h3 className="mt-3 font-display text-[1.2rem] text-ink">{w.title}</h3>
+                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{w.body}</p>
+                  <span className="mt-4 inline-block text-[13px] font-bold" style={{ color: w.accent }}>
+                    View →
+                  </span>
+                </TiltCard>
+              </a>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
       {/* ── Principles — the one dark, dramatic moment on the page ── */}
       <section id="principles" className="relative mx-auto max-w-6xl px-6 py-10">
         <motion.div
@@ -226,6 +355,33 @@ export default function Home() {
                 <p className="mt-2 text-[13.5px] leading-relaxed text-white/60">{p.d}</p>
               </motion.div>
             ))}
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ── Contact ── */}
+      <section id="contact" className="relative mx-auto max-w-3xl px-6 py-10 text-center">
+        <motion.div
+          variants={stagger(0.08)}
+          initial={entrance("hidden")}
+          whileInView="show"
+          viewport={inView}
+        >
+          <motion.span variants={revealUp} className="eyebrow">Contact</motion.span>
+          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(1.9rem,4vw,2.8rem)] leading-tight tracking-tightest text-ink">
+            Have a project in mind?
+          </motion.h2>
+          <motion.p variants={revealUp} className="mx-auto mt-4 max-w-md text-[1.02rem] leading-relaxed text-muted">
+            Tell us what you're building — a board, an app, a site or something nobody's
+            built yet. We reply like we ship: fast.
+          </motion.p>
+          <motion.div variants={revealUp} className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <MagneticButton href="mailto:sam@fruitionservices.io">
+              Start a conversation <span aria-hidden>→</span>
+            </MagneticButton>
+            <MagneticButton variant="ghost" href="https://github.com/sametivon">
+              See the code
+            </MagneticButton>
           </motion.div>
         </motion.div>
       </section>

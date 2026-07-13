@@ -4,9 +4,10 @@ import { spring } from "@/lib/motion";
 
 const links = [
   { label: "Products", href: "/#products" },
+  { label: "Services", href: "/#services" },
+  { label: "Work", href: "/#work" },
   { label: "Principles", href: "/#principles" },
-  { label: "Inspector", href: "/products/extension" },
-  { label: "MondayVirtual", href: "/products/mondayvirtual" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Nav() {
