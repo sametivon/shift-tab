@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { prefersReducedMotion, spring } from "@/lib/motion";
+import { spring } from "@/lib/motion";
 import { navLinks as links } from "@/lib/navLinks";
 import MobileMenu from "@/components/MobileMenu";
 
 export default function Nav() {
   const { scrollY } = useScroll();
-  const reduced = prefersReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
   const [section, setSection] = useState<string>("");
@@ -30,7 +29,7 @@ export default function Nav() {
 
   return (
     <motion.header
-      initial={reduced ? false : { y: -80, opacity: 0 }}
+      initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ ...spring, delay: 0.15 }}
       className="fixed inset-x-0 top-0 z-50 flex justify-center px-4"

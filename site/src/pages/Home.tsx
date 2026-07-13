@@ -1,16 +1,18 @@
-import { useRef } from "react";
 import { Head } from "vite-react-ssg";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
 import TiltCard from "@/components/TiltCard";
-import BrowserMock from "@/components/BrowserMock";
 import StickyStory from "@/components/StickyStory";
 import Counter from "@/components/Counter";
-import { maskLine, revealUp, scaleIn, stagger, spring, inView, useEntrance } from "@/lib/motion";
+import Scene from "@/components/scene/Scene";
+import ScenesRoot from "@/components/scene/ScenesRoot";
+import BootScene from "@/scenes/BootScene";
+import { revealUp, scaleIn, stagger, inView, useEntrance } from "@/lib/motion";
 
-/* ── shift-tab v4 — the homepage of a premium software company:
-   studio hero → product ecosystem → what we build → services →
-   process → trust → business CTA. Every section answers the last. ── */
+/* ── shift-tab v6 — one continuous experience, not stacked sections.
+   Every act is a <Scene>: registered in the scene store, focusable via
+   its anchor (Tab/Shift+Tab travels the journey), spied by the nav.
+   BOOT → THE WORK → practice → services → process → proof → prompt. ── */
 
 const products = [
   {
@@ -87,13 +89,8 @@ const process = [
 
 export default function Home() {
   const entrance = useEntrance();
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const mockY = useTransform(scrollYProgress, [0, 1], [0, 90]);
-  const mockScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
-  const mockOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
   return (
-    <>
+    <ScenesRoot>
       <Head>
         <title>shift-tab — AI software studio · products & custom development</title>
         <meta
@@ -117,66 +114,14 @@ export default function Home() {
         </script>
       </Head>
 
-      {/* ── Hero: the studio, alive ── */}
-      <section ref={heroRef} className="relative flex min-h-[100svh] flex-col overflow-hidden px-6 pt-32 sm:pt-36">
-        <div className="relative z-10 mx-auto max-w-3xl text-center">
-          <motion.span
-            initial={entrance({ opacity: 0, y: 10, filter: "blur(4px)" })}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ ...spring, delay: 0.15 }}
-            className="eyebrow mb-6 inline-block"
-          >
-            AI software studio
-          </motion.span>
+      {/* ── 01 · BOOT — the desktop assembles itself ── */}
+      <Scene id="boot" label="01 · boot" accent="#6D5EF7">
+        <BootScene />
+      </Scene>
 
-          <motion.h1
-            variants={stagger(0.1, 0.25)}
-            initial={entrance("hidden")}
-            animate="show"
-            className="font-display text-[clamp(2.6rem,6vw,4.6rem)] font-extrabold leading-[1.02] tracking-tightest text-ink"
-          >
-            {["Software with the", "quality switched on."].map((line, i) => (
-              <span key={i} className="block overflow-hidden pb-[0.08em]">
-                <motion.span variants={maskLine} className="block">
-                  {i === 1 ? <span className="text-gradient">{line}</span> : line}
-                </motion.span>
-              </span>
-            ))}
-          </motion.h1>
-
-          <motion.p
-            variants={revealUp}
-            initial={entrance("hidden")}
-            animate="show"
-            transition={{ delay: 0.7 }}
-            className="mx-auto mt-6 max-w-xl text-[1.1rem] leading-relaxed text-muted"
-          >
-            We ship our own products — and build AI-powered software for businesses
-            that want the same craft.
-          </motion.p>
-
-          <motion.div
-            initial={entrance({ opacity: 0, y: 14 })}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...spring, delay: 0.85 }}
-            className="mt-9 flex flex-wrap items-center justify-center gap-3"
-          >
-            <MagneticButton href="/#products">
-              Explore the products <span aria-hidden>→</span>
-            </MagneticButton>
-            <MagneticButton variant="ghost" href="/#contact">
-              Build with us
-            </MagneticButton>
-          </motion.div>
-        </div>
-
-        <motion.div style={{ y: mockY, scale: mockScale, opacity: mockOpacity }} className="relative z-10 mx-auto mt-16 w-full pb-20">
-          <BrowserMock />
-        </motion.div>
-      </section>
-
-      {/* ── Product ecosystem ── */}
-      <section id="products" className="relative mx-auto max-w-6xl px-6 py-20">
+      {/* ── 02 · THE WORK — product ecosystem ── */}
+      <Scene id="products" label="02 · the work" accent="#6D5EF7" travelOffset={-80}>
+      <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           variants={stagger(0.08)}
           initial={entrance("hidden")}
@@ -219,10 +164,12 @@ export default function Home() {
             </motion.div>
           ))}
         </motion.div>
-      </section>
+      </div>
+      </Scene>
 
-      {/* ── What we build ── */}
-      <section id="build" className="relative mx-auto max-w-6xl px-6 py-20">
+      {/* ── 03 · What we build ── */}
+      <Scene id="build" label="03 · the practice" accent="#4F46C8" travelOffset={-80}>
+      <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           variants={stagger(0.08)}
           initial={entrance("hidden")}
@@ -260,13 +207,17 @@ export default function Home() {
             </motion.div>
           ))}
         </motion.div>
-      </section>
+      </div>
+      </Scene>
 
-      {/* ── Services (sticky storytelling) ── */}
-      <StickyStory />
+      {/* ── 04 · Services (sticky storytelling) ── */}
+      <Scene id="services" label="04 · services" accent="#6D5EF7" travelOffset={-80}>
+        <StickyStory />
+      </Scene>
 
-      {/* ── Process ── */}
-      <section id="process" className="relative mx-auto max-w-6xl px-6 py-20">
+      {/* ── 05 · Process ── */}
+      <Scene id="process" label="05 · process" accent="#10B981" travelOffset={-80}>
+      <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           variants={stagger(0.08)}
           initial={entrance("hidden")}
@@ -305,10 +256,12 @@ export default function Home() {
             </motion.div>
           ))}
         </motion.div>
-      </section>
+      </div>
+      </Scene>
 
-      {/* ── Trust ── */}
-      <section className="relative mx-auto max-w-6xl px-6 py-20">
+      {/* ── 06 · Proof ── */}
+      <Scene id="trust" label="06 · proof" accent="#10B981" travelOffset={-80}>
+      <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           initial={entrance({ opacity: 0, y: 24 })}
           whileInView={{ opacity: 1, y: 0 }}
@@ -344,10 +297,12 @@ export default function Home() {
             ))}
           </div>
         </motion.div>
-      </section>
+      </div>
+      </Scene>
 
-      {/* ── Business CTA — midnight stage ── */}
-      <section id="contact" className="relative mx-auto max-w-6xl px-6 py-20">
+      {/* ── 07 · THE PROMPT — midnight stage ── */}
+      <Scene id="contact" label="07 · the prompt" accent="#0F172A" travelOffset={-80}>
+      <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           initial={entrance({ opacity: 0, y: 44, scale: 0.955 })}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -380,7 +335,8 @@ export default function Home() {
             ))}
           </div>
         </motion.div>
-      </section>
-    </>
+      </div>
+      </Scene>
+    </ScenesRoot>
   );
 }

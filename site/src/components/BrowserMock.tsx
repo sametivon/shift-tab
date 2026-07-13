@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { prefersReducedMotion } from "@/lib/motion";
+import { useReducedMotionSafe } from "@/lib/motion";
 
 /* ─────────────────────────────────────────────────────────────────────
    BrowserMock v2 — a living miniature application.
@@ -299,12 +299,17 @@ function FloatingBits({ px, py }: { px: any; py: any }) {
 const PANES = { inspector: InspectorPane, virtual: VirtualPane, graphql: GraphQLPane };
 
 export default function BrowserMock() {
-  const reduced = prefersReducedMotion();
+  const reduced = useReducedMotionSafe();
   const ref = useRef<HTMLDivElement>(null);
   const onScreen = useInView(ref, { amount: 0.25 });
   const [active, setActive] = useState(0);
-  const [sub, setSub] = useState(reduced ? 2 : -1);
+  const [sub, setSub] = useState(-1);
   const [pressing, setPressing] = useState(false);
+
+  // reduced motion: freeze at the fully-populated frame
+  useEffect(() => {
+    if (reduced) setSub(2);
+  }, [reduced]);
 
   /* pointer tilt for the whole window */
   const px = useMotionValue(0);

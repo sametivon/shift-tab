@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { prefersReducedMotion, spring, stagger, revealUp } from "@/lib/motion";
+import { spring, stagger, revealUp, useReducedMotionSafe } from "@/lib/motion";
 import { navLinks } from "@/lib/navLinks";
 
 /* Mobile navigation — the pill nav hides its links below md with no
@@ -8,7 +8,7 @@ import { navLinks } from "@/lib/navLinks";
    morphs to ✕ and a full-screen sheet of oversized links. */
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
-  const reduced = prefersReducedMotion();
+  const reduced = useReducedMotionSafe();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   // Lock page scroll while the sheet is open; Escape closes and returns focus.
