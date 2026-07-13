@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/sections/Footer";
 import CommandPalette from "@/components/palette/CommandPalette";
 import GhostKeys from "@/components/scene/GhostKeys";
+import AmbientLayer from "@/components/three/AmbientLayer";
 
 export default function Layout() {
   return (
@@ -15,8 +16,8 @@ export default function Layout() {
        is byte-identical for every visitor. */
     <MotionConfig reducedMotion="user">
       <SkipLink />
-      {/* Drifting pastel mesh — pure CSS, robust everywhere, zero JS cost */}
-      <div className="mesh-bg" aria-hidden />
+      {/* ambient light: CSS mesh underlay always; WebGL blooms once idle */}
+      <AmbientLayer />
       <SmoothScroll />
       <Nav />
       <main id="main" className="relative z-10">

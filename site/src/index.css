@@ -136,6 +136,15 @@
   from { transform: translate(0, 0); }
   to { transform: translate(-8%, -9%); }
 }
+/* once the WebGL layer is live it owns the blooms — retire the CSS blobs */
+.mesh-bg.canvas-live::before,
+.mesh-bg.canvas-live::after {
+  display: none;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 /* Midnight band — dark, dramatic section */
 .stage {
