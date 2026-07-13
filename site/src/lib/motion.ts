@@ -23,6 +23,12 @@ export const prefersReducedMotion = () =>
 export function useReducedMotionSafe() {
   const [reduced, setReduced] = useState(false);
   useEffect(() => {
+    // QA override: ?motion=full / ?motion=reduce beats the OS preference
+    const forced = new URLSearchParams(window.location.search).get("motion");
+    if (forced === "full" || forced === "reduce") {
+      setReduced(forced === "reduce");
+      return;
+    }
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReduced(mq.matches);
     const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);

@@ -1,75 +1,21 @@
 import { Head } from "vite-react-ssg";
 import { motion } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
-import TiltCard from "@/components/TiltCard";
 import StickyStory from "@/components/StickyStory";
 import Counter from "@/components/Counter";
 import Scene from "@/components/scene/Scene";
 import ScenesRoot from "@/components/scene/ScenesRoot";
 import BootScene from "@/scenes/BootScene";
+import WorkScene from "@/scenes/WorkScene";
+import LabScene from "@/scenes/LabScene";
+import { useMediaFlag } from "@/lib/useMediaFlag";
 import { revealUp, scaleIn, stagger, inView, useEntrance } from "@/lib/motion";
 
 /* ── shift-tab v6 — one continuous experience, not stacked sections.
    Every act is a <Scene>: registered in the scene store, focusable via
    its anchor (Tab/Shift+Tab travels the journey), spied by the nav.
-   BOOT → THE WORK → practice → services → process → proof → prompt. ── */
-
-const products = [
-  {
-    name: "Monday.com Inspector",
-    tag: "Live · Chrome Web Store",
-    tagline: "The DevTools for monday.com",
-    body: "Schema X-ray, GraphQL workspace, subitem import, bulk updates — free and open source.",
-    href: "/products/extension",
-    accent: "#6D5EF7",
-    visual: (
-      <div className="pointer-events-none select-none rounded-xl border border-hairline bg-white p-3 font-mono text-[10px] shadow-soft">
-        <div className="mb-1.5 flex items-center gap-1.5 text-[9px] text-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#6D5EF7]" /> board 5098431200
-          <span className="ml-auto rounded-full bg-softmint px-1.5 py-px text-[8px] font-bold text-emerald-600">✓ copied</span>
-        </div>
-        {[["status", "color"], ["person", "people"], ["date4", "date"]].map(([a, b]) => (
-          <div key={a} className="flex justify-between border-t border-hairline py-1">
-            <span className="text-brand">{a}</span>
-            <span className="text-muted">{b}</span>
-          </div>
-        ))}
-      </div>
-    ),
-  },
-  {
-    name: "MondayVirtual",
-    tag: "Live · SaaS",
-    tagline: "Your office, inside monday.com",
-    body: "A 3D team office — proximity voice & video, auditorium all-hands, live boards on the walls.",
-    href: "/products/mondayvirtual",
-    accent: "#10B981",
-    visual: (
-      <div className="pointer-events-none relative h-[104px] select-none overflow-hidden rounded-xl border border-hairline shadow-soft" style={{ background: "linear-gradient(180deg,#131a2c,#1c2740)" }}>
-        <div className="absolute inset-x-0 bottom-0 h-2/3 opacity-40" style={{ background: "repeating-linear-gradient(90deg, rgba(255,255,255,.09) 0 1px, transparent 1px 26px)", transform: "perspective(220px) rotateX(50deg)", transformOrigin: "bottom" }} />
-        {[["M", "#6D5EF7", "20%"], ["J", "#10B981", "45%"], ["A", "#F59E0B", "68%"]].map(([ch, c, x]) => (
-          <span key={ch} className="absolute top-[52%] flex h-6 w-6 items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ background: c, left: x }}>
-            {ch}
-          </span>
-        ))}
-        <span className="absolute right-2 top-2 rounded-full bg-white/[.12] px-2 py-0.5 text-[8.5px] font-semibold text-white/85">🎤 12 unmuted</span>
-      </div>
-    ),
-  },
-  {
-    name: "Next product",
-    tag: "In the lab",
-    tagline: "Something new is brewing",
-    body: "The next tool in the ecosystem is under construction. Built with the same obsession — follow along.",
-    href: "https://github.com/sametivon",
-    accent: "#111827",
-    visual: (
-      <div className="pointer-events-none flex h-[104px] select-none items-center justify-center rounded-xl border border-dashed border-hairline bg-mist/60 font-mono text-[11px] text-muted">
-        <span className="animate-pulse">▍</span>&nbsp;building…
-      </div>
-    ),
-  },
-];
+   BOOT → THE WORK (pinned stages) → THE LAB → practice → services →
+   process → proof → prompt. ── */
 
 const builds = [
   ["◧", "Premium SaaS", "Full products from zero to production"],
@@ -89,6 +35,8 @@ const process = [
 
 export default function Home() {
   const entrance = useEntrance();
+  // pinned scenes are hostile on touch: unpin on coarse pointers (post-mount flip)
+  const coarse = useMediaFlag("(pointer: coarse)");
   return (
     <ScenesRoot>
       <Head>
@@ -119,56 +67,18 @@ export default function Home() {
         <BootScene />
       </Scene>
 
-      {/* ── 02 · THE WORK — product ecosystem ── */}
-      <Scene id="products" label="02 · the work" accent="#6D5EF7" travelOffset={-80}>
-      <div className="relative mx-auto max-w-6xl px-6 py-20">
-        <motion.div
-          variants={stagger(0.08)}
-          initial={entrance("hidden")}
-          whileInView="show"
-          viewport={inView}
-          className="mx-auto mb-12 max-w-2xl text-center"
-        >
-          <motion.span variants={revealUp} className="eyebrow">The ecosystem</motion.span>
-          <motion.h2 variants={revealUp} className="mt-4 font-display text-[clamp(2.1rem,4.8vw,3.4rem)] font-extrabold leading-[1.04] tracking-tightest text-ink">
-            Products, not projects
-          </motion.h2>
-          <motion.p variants={revealUp} className="mx-auto mt-4 max-w-xl text-[1.05rem] leading-relaxed text-muted">
-            Published, maintained, iterated — one standard across everything we ship.
-          </motion.p>
-        </motion.div>
-
-        <motion.div
-          variants={stagger(0.1)}
-          initial={entrance("hidden")}
-          whileInView="show"
-          viewport={inView}
-          className="grid gap-6 lg:grid-cols-3"
-        >
-          {products.map((p) => (
-            <motion.div key={p.name} variants={scaleIn}>
-              <a href={p.href} className="block h-full" {...(p.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-                <TiltCard className="!rounded-card flex h-full flex-col">
-                  {p.visual}
-                  <span className="mt-5 inline-flex w-fit rounded-full px-3 py-1 text-[10.5px] font-bold uppercase tracking-wider text-white" style={{ background: p.accent }}>
-                    {p.tag}
-                  </span>
-                  <h3 className="mt-3 font-display text-[1.35rem] font-extrabold tracking-tightest text-ink">{p.name}</h3>
-                  <div className="mt-0.5 text-[14px] font-semibold" style={{ color: p.accent === "#111827" ? "#6D5EF7" : p.accent }}>{p.tagline}</div>
-                  <p className="mt-2.5 flex-1 text-[14px] leading-relaxed text-muted">{p.body}</p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-[13.5px] font-bold text-ink">
-                    {p.accent === "#111827" ? "Watch the lab" : "Explore"} <span aria-hidden>→</span>
-                  </span>
-                </TiltCard>
-              </a>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
+      {/* ── 02 · THE WORK — the products perform themselves ── */}
+      <Scene id="products" label="02 · the work" accent="#6D5EF7" pin={!coarse} length={3.2}>
+        {(ctx) => <WorkScene ctx={ctx} />}
       </Scene>
 
-      {/* ── 03 · What we build ── */}
-      <Scene id="build" label="03 · the practice" accent="#4F46C8" travelOffset={-80}>
+      {/* ── 03 · THE LAB — the workshop, mid-build ── */}
+      <Scene id="lab" label="03 · the lab" accent="#8b7bff">
+        <LabScene />
+      </Scene>
+
+      {/* ── 04 · What we build ── */}
+      <Scene id="build" label="04 · the practice" accent="#4F46C8" travelOffset={-80}>
       <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           variants={stagger(0.08)}
@@ -210,13 +120,13 @@ export default function Home() {
       </div>
       </Scene>
 
-      {/* ── 04 · Services (sticky storytelling) ── */}
-      <Scene id="services" label="04 · services" accent="#6D5EF7" travelOffset={-80}>
+      {/* ── 05 · Services (sticky storytelling) ── */}
+      <Scene id="services" label="05 · services" accent="#6D5EF7" travelOffset={-80}>
         <StickyStory />
       </Scene>
 
-      {/* ── 05 · Process ── */}
-      <Scene id="process" label="05 · process" accent="#10B981" travelOffset={-80}>
+      {/* ── 06 · Process ── */}
+      <Scene id="process" label="06 · process" accent="#10B981" travelOffset={-80}>
       <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           variants={stagger(0.08)}
@@ -259,8 +169,8 @@ export default function Home() {
       </div>
       </Scene>
 
-      {/* ── 06 · Proof ── */}
-      <Scene id="trust" label="06 · proof" accent="#10B981" travelOffset={-80}>
+      {/* ── 07 · Proof ── */}
+      <Scene id="trust" label="07 · proof" accent="#10B981" travelOffset={-80}>
       <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           initial={entrance({ opacity: 0, y: 24 })}
@@ -300,8 +210,8 @@ export default function Home() {
       </div>
       </Scene>
 
-      {/* ── 07 · THE PROMPT — midnight stage ── */}
-      <Scene id="contact" label="07 · the prompt" accent="#0F172A" travelOffset={-80}>
+      {/* ── 08 · THE PROMPT — midnight stage ── */}
+      <Scene id="contact" label="08 · the prompt" accent="#0F172A" travelOffset={-80}>
       <div className="relative mx-auto max-w-6xl px-6 py-20">
         <motion.div
           initial={entrance({ opacity: 0, y: 44, scale: 0.955 })}

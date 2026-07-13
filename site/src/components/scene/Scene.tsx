@@ -22,6 +22,8 @@ export type SceneCtx = {
   /** this scene currently owns the viewport */
   active: boolean;
   reduced: boolean;
+  /** false when the pin collapsed (reduced motion) or pin was never requested */
+  pinned: boolean;
 };
 
 type SceneProps = {
@@ -83,7 +85,7 @@ export default function Scene({
   }, [id]);
 
   const pinned = pin && !reduced;
-  const ctx: SceneCtx = { progress: scrollYProgress, active, reduced };
+  const ctx: SceneCtx = { progress: scrollYProgress, active, reduced, pinned };
   const body = typeof children === "function" ? children(ctx) : children;
 
   return (

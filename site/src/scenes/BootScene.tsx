@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import type { MotionValue } from "framer-motion";
 import MagneticButton from "@/components/MagneticButton";
-import BrowserMock from "@/components/BrowserMock";
+import BootPalette from "@/components/stages/BootPalette";
 import { maskLine, revealUp, stagger, spring, useEntrance, useReducedMotionSafe } from "@/lib/motion";
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -223,7 +223,7 @@ export default function BootScene() {
         </div>
 
         <motion.div style={{ y: mockY, scale: mockScale, opacity: mockOpacity }}>
-          <BrowserMock />
+          <BootPalette />
         </motion.div>
       </div>
     </div>
