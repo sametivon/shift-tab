@@ -145,7 +145,7 @@ export default function Studio() {
             ))}
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <MagneticButton href="mailto:hello@shift-tab.eu">
+            <MagneticButton href="mailto:hello-shift-tab@proton.me">
               Start a conversation <span aria-hidden>→</span>
             </MagneticButton>
             <MagneticButton variant="ghost" href="/#products">

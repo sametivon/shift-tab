@@ -32,7 +32,7 @@ export default function PromptScene() {
   const send = () => {
     const subject = encodeURIComponent("New project — via shift-tab.eu");
     const body = encodeURIComponent(draft.trim() ? draft.trim() : "Hi Sam — let's talk about a build.");
-    window.location.href = `mailto:hello@shift-tab.eu?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:hello-shift-tab@proton.me?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -121,7 +121,7 @@ export default function PromptScene() {
           </motion.div>
 
           <motion.div variants={revealUp} className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <MagneticButton variant="accent" href="mailto:hello@shift-tab.eu">
+            <MagneticButton variant="accent" href="mailto:hello-shift-tab@proton.me">
               Start a conversation <span aria-hidden>→</span>
             </MagneticButton>
             <MagneticButton variant="ghost" href="/#products">

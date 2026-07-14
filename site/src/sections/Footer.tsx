@@ -31,7 +31,7 @@ export default function Footer() {
             <a href="/products/mondayvirtual" className="hover:text-ink">MondayVirtual</a>
             <a href="/studio" className="hover:text-ink">The studio</a>
             <a href="https://github.com/sametivon" target="_blank" rel="noopener noreferrer" className="hover:text-ink">GitHub</a>
-            <a href="mailto:hello@shift-tab.eu" className="hover:text-ink">Contact</a>
+            <a href="mailto:hello-shift-tab@proton.me" className="hover:text-ink">Contact</a>
           </div>
         </div>
       </div>
