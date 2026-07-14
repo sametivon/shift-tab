@@ -64,10 +64,9 @@ export default function Studio() {
           </motion.h1>
           <motion.div variants={revealUp} className="mt-8 space-y-5 text-[1.08rem] leading-relaxed text-muted">
             <p>
-              shift-tab started as a lab. Years of building on monday.com — 500+ implementations&apos;
-              worth of experience behind the team — kept surfacing the same thought: the tools we
-              wished existed didn&apos;t. So we built them, published them, and the lab became the
-              company.
+              shift-tab started as a lab. Years of building on monday.com kept surfacing the same
+              thought: the tools we wished existed didn&apos;t. So we built them, published them,
+              and the lab became the company.
             </p>
             <p>
               Today that&apos;s two live products — Monday.com Inspector on the Chrome Web Store and
@@ -133,9 +132,9 @@ export default function Studio() {
         >
           <div className="flex flex-wrap gap-x-14 gap-y-6">
             {[
-              { to: 500, suffix: "+", note: "monday.com implementations" },
               { to: 2, suffix: "", note: "products live" },
               { to: 100, suffix: "%", note: "open-source extension" },
+              { to: 1, suffix: "", note: "more in the lab" },
             ].map((s) => (
               <div key={s.note}>
                 <div className="font-display text-[2.2rem] font-extrabold leading-none tracking-tightest text-ink">

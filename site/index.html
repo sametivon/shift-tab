@@ -8,6 +8,39 @@
     <link rel="preload" href="/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/FrauncesVariable.woff2" as="font" type="font/woff2" crossorigin />
     <title>shift-tab — tools for people who know their shortcuts</title>
+
+    <!-- Google Analytics 4 — ONE property across all shift-tab lab sites.
+         Replace G-XXXXXXXXXX with the real Measurement ID (GA Admin →
+         Data Streams). Same ID as mondayinspector.eu so cross-domain
+         journeys (guide → hub → store) stitch into one session. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX", {
+        linker: { domains: ["mondayinspector.eu", "shift-tab.eu", "mondayvirtual.eu"] },
+      });
+
+      // Outbound + store-click tracking (delegated, works on every SSG page).
+      // "store_click" is the primary conversion — mark it as a key event in
+      // GA Admin. Everything else off-site logs as outbound_click.
+      document.addEventListener("click", function (e) {
+        var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+        if (!a) return;
+        var href = a.getAttribute("href") || "";
+        if (!/^https?:\/\//.test(href)) return;
+        var host;
+        try { host = new URL(href).hostname; } catch (_) { return; }
+        if (host === location.hostname) return;
+        var isStore = host.indexOf("chromewebstore.google.com") !== -1;
+        gtag("event", isStore ? "store_click" : "outbound_click", {
+          link_domain: host,
+          link_url: href,
+          link_text: (a.textContent || "").trim().slice(0, 80),
+        });
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

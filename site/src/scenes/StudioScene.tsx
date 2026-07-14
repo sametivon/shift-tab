@@ -8,9 +8,9 @@ import { revealUp, stagger, inView, useEntrance } from "@/lib/motion";
    ───────────────────────────────────────────────────────────────────── */
 
 const STATS = [
-  { to: 500, suffix: "+", note: "monday.com implementations behind the team" },
   { to: 2, suffix: "", note: "products live — Chrome Web Store & SaaS" },
   { to: 100, suffix: "%", note: "open-source extension — audit every line" },
+  { to: 1, suffix: "", note: "more already taking shape in the lab" },
 ];
 
 export default function StudioScene() {

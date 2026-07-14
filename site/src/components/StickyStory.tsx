@@ -28,8 +28,8 @@ const chapters = [
   {
     n: "03",
     eyebrow: "Enterprise & platform",
-    title: "monday.com work at platinum grade",
-    body: "Implementations, workspace architecture, custom apps and automations for teams that run on monday.com — delivered with the discipline of 500+ implementations.",
+    title: "monday.com work, done properly",
+    body: "Implementations, workspace architecture, custom apps and automations for teams that run on monday.com — delivered with the same discipline as our own products.",
     tint: "stage",
     chips: ["Implementations", "Custom platform apps", "Ongoing partnership"],
     dark: true,
