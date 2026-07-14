@@ -101,7 +101,7 @@ export function buildCommands(scenes: SceneMeta[]): Command[] {
       id: "c:project",
       title: "Start a project",
       group: "Contact",
-      hint: "hello@shift-tab.eu",
+      hint: "hello-shift-tab@proton.me",
       keywords: "email contact hire work build talk",
       run: ({ close }) => {
         close();

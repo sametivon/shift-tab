@@ -51,7 +51,7 @@ export default function Home() {
             name: "shift-tab",
             alternateName: "shift-tab lab",
             url: "https://shift-tab.eu",
-            email: "hello@shift-tab.eu",
+            email: "hello-shift-tab@proton.me",
             description: "AI software studio: premium SaaS products, browser extensions and custom AI-powered development.",
           })}
         </script>
